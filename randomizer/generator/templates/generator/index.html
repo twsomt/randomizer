@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
-
+{% block title %}
+    Лучшие конкурсы тут
+{% endblock %}
 {% block content %}
-<fieldset>
-    <legend><h2>Главный по тарелочкам</h2></legend>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, quis id! Officia cupiditate rerum excepturi in minus hic iste explicabo exercitationem inventore numquam placeat blanditiis beatae, perspiciatis magni ipsa, velit consequuntur, facilis qui eaque?</p>
-</fieldset>
 <form action="#" method="post" target="_blank">
     <fieldset>
     <legend><h2>Провести конкурс</h2></legend>
@@ -19,21 +17,18 @@
     </fieldset>
 </form>
 <fieldset>
-    <legend><h2>Мои конкурсы</h2></legend>
+    <legend><h2>Мои последние конкурсы</h2></legend>
     {% for raffle in raffles%}
     <ul>
         <h3>{{raffle.title}}</h3>
         <li>Описание: {{raffle.description}}</li>
-        <li>Ссылка на пост: {{raffle.link}}</li>
-        <li>Победитель: {{raffle.winner}}</li>
+        <li>Ссылка на пост: <a href="{{raffle.link}}" target="_blank">{{raffle.link}}</a></li>
+        <li>Победитель: <a href="{{raffle.winner}}" target="_blank">{{raffle.winner}}</a></li>
         <li>Дата создания: {{raffle.time_create|date:"d E Y"}}</li>
         <li>Дата изменения: {{raffle.time_update|date:"d E Y"}}</li>
         <li>Автор конкурса: {{raffle.creator}}</li>
     </ul>
     {% endfor %}
 </fieldset>
-<fieldset>
-    <legend><h2>Какой-нибудь еще контент</h2></legend>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, quis id! Officia cupiditate rerum excepturi in minus hic iste explicabo exercitationem inventore numquam placeat blanditiis beatae, perspiciatis magni ipsa, velit consequuntur, facilis qui eaque?</p>
-</fieldset>
+
 {% endblock %}
