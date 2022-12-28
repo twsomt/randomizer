@@ -7,17 +7,30 @@
 </fieldset>
 <form action="#" method="post" target="_blank">
     <fieldset>
-    <legend><h2>Розыгрыш тут:</h2></legend>
-        <label for="name">Введите ссылку на пост Вконтакте: </label>
-        <input type="text" name="name" placeholder="https://vk.com/wall-1_399655" id="name" required>
+    <legend><h2>Провести конкурс</h2></legend>
+        <label for="link">Введите ссылку на пост Вконтакте: </label>
+        <input type="text" name="link" placeholder="https://vk.com/wall-1_399655" id="link" required>
+        <br>
+        <label for="qty_winners">Введите желаемое количество победителей: </label>
+        <input type="text" name="qty_winners" placeholder="4" id="qty_winners" required>
         <div>
             <button type="submit">Определить победителя</button>
         </div>
     </fieldset>
 </form>
 <fieldset>
-    <legend><h2>Проведенные конкурсы</h2></legend>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, quis id! Officia cupiditate rerum excepturi in minus hic iste explicabo exercitationem inventore numquam placeat blanditiis beatae, perspiciatis magni ipsa, velit consequuntur, facilis qui eaque?</p>
+    <legend><h2>Мои конкурсы</h2></legend>
+    {% for raffle in raffles%}
+    <ul>
+        <h3>{{raffle.title}}</h3>
+        <li>Описание: {{raffle.description}}</li>
+        <li>Ссылка на пост: {{raffle.link}}</li>
+        <li>Победитель: {{raffle.winner}}</li>
+        <li>Дата создания: {{raffle.time_create|date:"d E Y"}}</li>
+        <li>Дата изменения: {{raffle.time_update|date:"d E Y"}}</li>
+        <li>Автор конкурса: {{raffle.creator}}</li>
+    </ul>
+    {% endfor %}
 </fieldset>
 <fieldset>
     <legend><h2>Какой-нибудь еще контент</h2></legend>
