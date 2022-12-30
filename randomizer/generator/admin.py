@@ -12,3 +12,5 @@ class RaffleAdmin(admin.ModelAdmin):
                     'time_create',
                     'time_update',
                     'creator',)
+            
+    prepopulated_fields = {'slug': ('title', )}
