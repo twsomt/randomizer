@@ -1,38 +1,39 @@
 {% extends 'base.html' %}
-{% block title %}
-    Лучшие конкурсы тут
-{% endblock %}
+{% block title %}Лучшие конкурсы тут{% endblock %}
 {% block content %}
-<form action="#" method="post" target="_blank">
+
+<div class="p-2 bg-light border">
     <fieldset>
     <legend><h2>Провести конкурс</h2></legend>
-        <label for="link">Введите ссылку на пост Вконтакте: </label>
-        <input type="text" name="link" placeholder="https://vk.com/wall-1_399655" id="link" required>
-        <br>
-        <label for="qty_winners">Введите желаемое количество победителей: </label>
-        <input type="text" name="qty_winners" placeholder="4" id="qty_winners" required>
-        <div>
-            <button type="submit">Определить победителя</button>
+    <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Введите ссылку на пост Вконтакте:</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="https://vk.com/wall-7568821_681441">
         </div>
-    </fieldset>
-</form>
-<fieldset>
-    <legend><h2>Мои последние конкурсы</h2></legend>
-    {% for raffle in raffles%}
-    <ul>
-        <h3>{{raffle.title}}</h3>
-        <li>Описание: {{raffle.description}}</li>
-        <li>Ссылка на пост: <a href="{{raffle.link}}" target="_blank">{{raffle.link}}</a></li>
-        <li>Победитель: <a href="{{raffle.winner}}" target="_blank">{{raffle.winner}}</a></li>
-        <li>Дата создания: {{raffle.time_create|date:"d E Y"}}</li>
-        <li>Дата изменения: {{raffle.time_update|date:"d E Y"}}</li>
-        <li>Автор конкурса: {{raffle.creator}}</li>
-        <br>
-        СЛАГ {{ raffle.slug }}
-        <a href="{% url 'generator:raffle_page' raffle.slug %}"> {% url 'generator:raffle_page' raffle.slug %}</a>
-    </ul>
-    {% endfor %}
-   
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Введите желаемое количество победителей:</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="3">
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Определить победителя</button>
+    </form>
+<br>
 </fieldset>
 
+    <fieldset>
+        <legend><h2>Мои последние конкурсы</h2></legend>
+        {% for raffle in raffles%}
+        <ul>
+            <h3><a href="{% url 'generator:raffle_page' raffle.slug %}">{{raffle.title}}</a></h3>
+            <!-- <li>Описание: {{raffle.description}}</li> -->
+            <li>Ссылка на пост: <a href="#" onclick='window.open("{{raffle.link}}");return false;'>{{raffle.link}}</a></li>
+            <li>Победите-ль(-ли): <a href="#" onclick='window.open("{{raffle.winner}}");return false;'>{{raffle.winner}}</a></li>
+            <li>Дата создания: {{raffle.time_create|date:"d E Y"}}</li>
+            <li>Дата изменения: {{raffle.time_update|date:"d E Y"}}</li>
+            <li>Автор конкурса: {{raffle.creator}}</li>
+        </ul>
+        {% endfor %}
+        <button type="button" class="btn btn-outline-primary">Показать больше конкурсов</button>
+        
+    </fieldset>
+</div>
 {% endblock %}
