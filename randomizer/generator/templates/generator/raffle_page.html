@@ -2,22 +2,54 @@
 
 
 {% block content %}
+<div class="p-2 bg-light border">
 <fieldset>
-    <legend><h2>Мои конкурсы</h2></legend>
+    <legend><h2>Подробнее о конкурсе</h2></legend>
     {% for raffle in raffles%}
-    <ul>
-        <h3>{{raffle.title}}</h3>
-        <li>Описание: {{raffle.description}}</li>
-        <li>Ссылка на пост: <a href="{{raffle.link}}" target="_blank">{{raffle.link}}</a></li>
-        <li>Победитель: <a href="{{raffle.winner}}" target="_blank">{{raffle.winner}}</a></li>
-        <li>Дата создания: {{raffle.time_create|date:"d E Y"}}</li>
-        <li>Дата изменения: {{raffle.time_update|date:"d E Y"}}</li>
-        <li>Автор конкурса: {{raffle.creator}}</li>
-        <br>
-        СЛАГ {{ raffle.slug }}
-       
-    </ul>
+    <table class="table">
+        <tr>
+            <td>Заголовок</td>
+            <td>{{raffle.title}}</td>
+        </tr>
+        <tr>
+            <td>Описание</td>
+            <td>{{raffle.description}}</td>
+        </tr>
+        <tr>
+            <td>Ссылка на пост</td>
+            <td><a href="{{raffle.link}}" target="_blank">{{raffle.link}}</a></td>
+        </tr>
+        <tr>
+            <td>Победитель</td>
+            <td><a href="{{raffle.winner}}" target="_blank">{{raffle.winner}}</a></td>
+        </tr>
+        <tr>
+            <td>Дата создания</td>
+            <td>{{raffle.time_create|date:"d E Y"}}</td>
+        </tr>
+        <tr>
+            <td>Дата изменения</td>
+            <td>{{raffle.time_update|date:"d E Y"}}</td>
+        </tr>
+        <tr>
+            <td>Автор конкурса</td>
+            <td>{{raffle.creator}}</td>
+        </tr>
+
+
+    </table>
+    </fieldset>
+    <button type="button" class="btn btn-outline-primary">Все мои конкурсы подробно</button>
+</div>
     {% endfor %}
+    
 </fieldset>
 
+
+{% endblock %}
+{% block footer %}
+{% load static %}
+<div class="navbar fixed-bottom bg-light">
+    <h5>Футер, такой футер</h5>
+</div>
 {% endblock %}
