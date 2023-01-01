@@ -1,1 +1,23 @@
 {% extends 'base.html' %}
+
+
+{% block content %}
+<fieldset>
+    <legend><h2>Мои конкурсы</h2></legend>
+    {% for raffle in raffles%}
+    <ul>
+        <h3>{{raffle.title}}</h3>
+        <li>Описание: {{raffle.description}}</li>
+        <li>Ссылка на пост: <a href="{{raffle.link}}" target="_blank">{{raffle.link}}</a></li>
+        <li>Победитель: <a href="{{raffle.winner}}" target="_blank">{{raffle.winner}}</a></li>
+        <li>Дата создания: {{raffle.time_create|date:"d E Y"}}</li>
+        <li>Дата изменения: {{raffle.time_update|date:"d E Y"}}</li>
+        <li>Автор конкурса: {{raffle.creator}}</li>
+        <br>
+        СЛАГ {{ raffle.slug }}
+       
+    </ul>
+    {% endfor %}
+</fieldset>
+
+{% endblock %}

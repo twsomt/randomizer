@@ -27,8 +27,12 @@
         <li>Дата создания: {{raffle.time_create|date:"d E Y"}}</li>
         <li>Дата изменения: {{raffle.time_update|date:"d E Y"}}</li>
         <li>Автор конкурса: {{raffle.creator}}</li>
+        <br>
+        СЛАГ {{ raffle.slug }}
+        <a href="{% url 'generator:raffle_page' raffle.slug %}"> {% url 'generator:raffle_page' raffle.slug %}</a>
     </ul>
     {% endfor %}
+   
 </fieldset>
 
 {% endblock %}

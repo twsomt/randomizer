@@ -2,7 +2,7 @@ from django.shortcuts import render
 from generator.models import Raffle
 
 def index(request):
-    raffles = (Raffle.objects.all())[::-1]
+    raffles = (Raffle.objects.all())[:1]
 
     context = {
         'raffles': raffles
@@ -12,10 +12,10 @@ def index(request):
 
 
 def raffle_page(request, slug):
-    raffle = (Raffle.objects.all())
+    raffles = (Raffle.objects.all())
 
     context = {
-        'raffle': raffle
+        'raffles': raffles
     }
 
     return render(request, 'generator/raffle_page.html', context)
