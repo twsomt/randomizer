@@ -3,43 +3,81 @@
 {% block content %}
 
 <div class="p-2 bg-light border">
-    <fieldset>
-    <legend><h2>Провести конкурс</h2></legend>
-    <form>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Введите ссылку на пост Вконтакте:</label>
-          <input type="url" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="https://vk.com/wall-7568821_681441" required>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
+                    <b>Провести конкурс</b>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                    <fieldset>
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Введите ссылку на пост
+                                    Вконтакте:</label>
+                                <input type="url" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="https://vk.com/wall-7568821_681441"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Введите желаемое количество
+                                    победителей:</label>
+                                <input type="number" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="1" required>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary">Определить победителя</button>
+                        </form>
+                        <br>
+                    </fieldset>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Введите желаемое количество победителей:</label>
-            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="1" required>
-        </div>
-        <button type="submit" class="btn btn-outline-primary">Определить победителя</button>
-    </form>
-<br>
-</fieldset>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
+                    <b>Мои последние конкурсы</b>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                    <fieldset>
+                        <table class="table table-hover ">
+                            <caption>Показана краткая информация для последних 5 конкурсов. Для получения полной
+                                информации, перейдите на страницу с подробностями</caption>
+                            <thead>
+                                <tr class="nohower">
+                                    <td><b>Описание</b></td>
+                                    <td><b>Ccылка на пост</b></td>
+                                    <td><b>Победитель<b></td>
+                                    <td><b>Дата проведения<b></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for raffle in raffles%}
+                                <tr
+                                    onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}'; return false">
+                                    <td>{{ raffle.description|truncatechars:30 }}</td>
+                                    <td>{{ raffle.link }}</td>
+                                    <td>{{ raffle.winner }}</td>
+                                    <td>{{ raffle.time_create|date:"d E Y"}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-outline-primary">Подробнее</button>
 
-    <fieldset>
-        <legend><h2>Мои последние конкурсы</h2></legend>
-        <table class="table table-hover">
-            <caption>Показана краткая информация для последних 5 конкурсов. Для получения полной информации, перейдите на страницу с подробностями</caption>
-            <tr>
-                <td><b>Описание</b></td>
-                <td><b>Ccылка на пост</b></td>
-                <td><b>Победитель<b></td>
-                <td><b>Дата проведения<b></td>
-            </tr>
-        {% for raffle in raffles%}
-            <tr onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}'; return false">
-                <td>{{ raffle.description|truncatechars:30 }}</td>
-                <td>{{ raffle.link }}</td>
-                <td>{{ raffle.winner }}</td>
-                <td>{{ raffle.time_create|date:"d E Y"}}</td>
-            </tr>
-        {% endfor %}
-        </table>
-        <button type="button" class="btn btn-outline-primary">Подробнее</button>
-        
-    </fieldset>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
