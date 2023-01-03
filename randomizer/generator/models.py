@@ -19,5 +19,8 @@ class Raffle(models.Model):
         related_name = 'raffles'
     )
 
+    # class Meta:
+    #     ordering = ('-time_create',)
+
     def __str__(self):
         return self.title
