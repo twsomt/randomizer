@@ -59,13 +59,9 @@
             <button type="submit" class="btn btn-outline-primary">
               Войти
             </button>
-            <!-- Тест на внимательность. Без переопределения шаблона этого адреса
-            не существует. Нужно что-то делать, иначе все упадет -->
-            {% if password_reset_form %}
-            <a href="{% url 'generator:password_reset_form' %}" class="btn btn-outline-primary">
+            <a href="{% url 'users:password_reset_form' %}" class="btn btn-outline-primary">
               Забыли пароль?
             </a>
-            {% endif %}
           </div>
           </form>
         </div> <!-- card body -->
