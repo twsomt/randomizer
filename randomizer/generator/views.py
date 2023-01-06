@@ -13,7 +13,6 @@ def authorized_only(func):
 @authorized_only
 def index(request):
     raffles = (Raffle.objects.filter(creator=request.user))[:5]
-    [print(*i) for i in User.__dict__]
     context = {
         'raffles': raffles
     }
