@@ -61,7 +61,6 @@
                   <td><b>Ccылка на пост</b></td>
                   <td><b>Победитель<b></td>
                   <td><b>Дата проведения<b></td>
-                  <td><b>Автор<b></td> <!-- временно -->
                 </tr>
               </thead>
               <tbody>
@@ -72,7 +71,6 @@
                   <td>{{ raffle.link }}</td>
                   <td>{{ raffle.winner }}</td>
                   <td>{{ raffle.time_create|date:"d E Y"}}</td>
-                  <td>{{ raffle.creator }}</td> <!-- временно -->
                 </tr>
                 {% endfor %}
               </tbody>
