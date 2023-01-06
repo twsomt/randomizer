@@ -7,8 +7,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-headingOne">
         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-          data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-          aria-controls="panelsStayOpen-collapseOne">
+          data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
           <b>Провести конкурс</b>
         </button>
       </h2>
@@ -20,15 +19,14 @@
               <div class="mb-2">
                 <label for="exampleInputEmail1" class="form-label">Введите ссылку на пост
                   Вконтакте:</label>
-                <input type="url" class="form-control" id="exampleInputEmail1"
-                  aria-describedby="emailHelp" placeholder="https://vk.com/wall-7568821_681441"
-                  required name="post-link-vk">
+                <input type="url" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="https://vk.com/wall-7568821_681441" required name="post-link-vk">
               </div>
               <div class="mb-2">
                 <label for="exampleInputEmail1" class="form-label">Введите желаемое количество
                   победителей:</label>
-                <input type="number" class="form-control" id="exampleInputEmail1"
-                  aria-describedby="emailHelp" placeholder="1" name="qty-winners" required>
+                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="1" name="qty-winners" required>
                 <br>
                 <input type="checkbox" name="is_human" checked="checked" name="if-usr-in-group">
                 Учитывать только участников группы
@@ -43,8 +41,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-          data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
-          aria-controls="panelsStayOpen-collapseOne">
+          data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
           <b>Мои последние конкурсы</b>
         </button>
       </h2>
@@ -65,8 +62,7 @@
               </thead>
               <tbody>
                 {% for raffle in raffles%}
-                <tr
-                  onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}'; return false">
+                <tr onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}'; return false">
                   <td>{{ raffle.description|truncatechars:30 }}</td>
                   <td>{{ raffle.link }}</td>
                   <td>{{ raffle.winner }}</td>
@@ -75,7 +71,8 @@
                 {% endfor %}
               </tbody>
             </table>
-            <button type="submit" class="btn btn-outline-primary">Подробнее</button>
+            <a href="{% url 'generator:my_raffles' %}"><button type="submit"
+                class="btn btn-outline-primary">Подробнее</button></a>
 
           </fieldset>
         </div>
