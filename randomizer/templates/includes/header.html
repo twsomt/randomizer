@@ -17,7 +17,13 @@
           <a class="nav-link" href="#">Личный кабинет</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{ user.get_username }}</a>
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+            {% if user.first_name and user.last_name %}
+            {{ user.get_full_name }}
+            {% else %}
+            {{ user.get_username }}
+            {% endif %}
+          </a>
         </li>
         {% endif %}
         {% if not request.user.is_authenticated %}
