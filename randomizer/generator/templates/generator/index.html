@@ -8,14 +8,17 @@
       <h2 class="accordion-header" id="panelsStayOpen-headingOne">
         <button class="accordion-button" type="button" data-bs-toggle="collapse"
           data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-          <b>Провести конкурс</b>
+          <b>Быстрый конкурс</b>
         </button>
       </h2>
+
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
         aria-labelledby="panelsStayOpen-headingOne">
         <div class="accordion-body">
-          <fieldset>
+          <table class="table">
+            <caption>При проведении быстрого конкурса дополнительные поля будут заполнены автоматически</caption>
             <form method="post" action="raffle-form">
+
               <div class="mb-2">
                 <label for="exampleInputEmail1" class="form-label">Введите ссылку на пост
                   Вконтакте:</label>
@@ -31,10 +34,11 @@
                 <input type="checkbox" name="is_human" checked="checked" name="if-usr-in-group">
                 Учитывать только участников группы
               </div>
-              <button type="submit" class="btn btn-outline-primary">Определить победителя</button>
+          </table>
+          <button type="submit" class="btn btn-outline-primary">Определить победителя</buttonЮ>
             </form>
             <br>
-          </fieldset>
+
         </div>
       </div>
     </div>
@@ -51,7 +55,7 @@
           <fieldset>
             <table class="table table-hover ">
               <caption>Показана краткая информация для последних 5 конкурсов. Для получения полной
-                информации, перейдите на страницу с подробностями</caption>
+                информации перейдите на страницу с подробностями</caption>
               <thead>
                 <tr class="nohower">
                   <td><b>Описание</b></td>
