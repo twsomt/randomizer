@@ -14,3 +14,10 @@ class RaffleAdmin(admin.ModelAdmin):
                     'creator',)
             
     prepopulated_fields = {'slug': ('title', )}
+
+
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    model = Client
+    can_delete = False
+    verbose_name_plural = 'client'

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 User = get_user_model()
 
+
 class Raffle(models.Model):
 
     # Fields
@@ -16,8 +17,8 @@ class Raffle(models.Model):
     time_update = models.DateField(auto_now=True)
     creator = models.ForeignKey(
         User,
-        on_delete = models.CASCADE,
-        related_name = 'raffles'
+        on_delete=models.CASCADE,
+        related_name='raffles'
     )
 
     class Meta:
@@ -25,3 +26,13 @@ class Raffle(models.Model):
 
     def __str__(self):
         return self.title
+
+class Client(models.Model):
+
+    # Fields
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    api_vk_key = models.CharField(null=True, max_length=500)
+    paid_up_to = models.DateField(null=True)
+
+    def __str__(self):
+        return self.user.get_username()
