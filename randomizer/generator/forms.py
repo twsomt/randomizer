@@ -7,4 +7,4 @@ class VkForm(forms.ModelForm):
     class Meta:
         # Raffle form
         model = Raffle
-        fields = ('title', 'slug', 'description', 'link', 'winner')
+        fields = ('slug', 'link', 'is_subscribers')

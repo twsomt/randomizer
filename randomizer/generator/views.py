@@ -3,6 +3,7 @@ from generator.models import Raffle
 from django.views.generic.edit import CreateView
 from generator.forms import VkForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from datetime import datetime as dt
 
 def authorized_only(func):
     def check_user(request, *args, **kwargs):
@@ -57,6 +58,25 @@ class VkForm(LoginRequiredMixin, CreateView):
     success_url = '/thankyou/' 
 
     def form_valid(self, form):
-        print(type(form.instance))
+        
         form.instance.creator = self.request.user
+        user = form.instance.creator
+        pk = form.instance.pk
+        # title
+        title = form.instance.title
+        now = dt.now().strftime("%d-%m-%Y %H:%M:%S")
+        print(now)
+        if not title:
+            form.instance.title = f'Конкурс #{user}_{now}'
+
+        # description
+        description = form.instance.description
+        if not description:
+            form.instance.description = f'Конкурс #{user}_{now}'
+
+         # winner
+        winner = form.instance.winner
+        if not winner:
+            form.instance.winner = 'https://vk.com/id10883203'
+        
         return super().form_valid(form)

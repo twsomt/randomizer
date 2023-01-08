@@ -13,7 +13,8 @@ class Raffle(models.Model):
     slug = models.SlugField(unique=True, null=False)
     description = models.TextField(max_length=500)
     link = models.URLField()
-    winner = models.URLField()
+    is_subscribers = models.BooleanField(default=True)
+    winner = models.TextField()
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(

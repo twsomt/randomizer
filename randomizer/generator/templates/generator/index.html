@@ -81,7 +81,7 @@
               <tbody>
                 {% for raffle in raffles%}
                 <tr onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}'; return false">
-                  <td>{{ raffle.description|truncatechars:30 }}</td>
+                  <td>{{ raffle.description|truncatechars:45 }}</td>
                   <td>{{ raffle.link }}</td>
                   <td>{{ raffle.winner }}</td>
                   <td>{{ raffle.time_create|date:"d E Y"}}</td>

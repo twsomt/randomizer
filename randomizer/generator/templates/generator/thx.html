@@ -27,10 +27,17 @@
                 <td>Дата создания</td>
                 <td>{{raffle.time_create|date:"d E Y"}}</td>
             </tr>
+            {% if raffle.time_create|date:"d E Y H i s" == raffle.time_update|date:"d E Y H i s" %}
+            <tr>
+                <td>Дата изменения</td>
+                <td>Изменения отсутствуют</td>
+            </tr>
+            {% else %}
             <tr>
                 <td>Дата изменения</td>
                 <td>{{raffle.time_update|date:"d E Y"}}</td>
             </tr>
+            {% endif %}
             <tr>
                 <td>Автор конкурса</td>
                 {% if user.first_name and user.last_name %}
