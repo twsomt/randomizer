@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from generator.models import Raffle
 from django.views.generic.edit import CreateView
 from generator.forms import VkForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def authorized_only(func):
     def check_user(request, *args, **kwargs):
@@ -49,7 +50,13 @@ def thankyou(request):
     }
     return render(request, 'generator/thx.html', context)
 
-class VkForm(CreateView): 
-    form_class = VkForm    
+class VkForm(LoginRequiredMixin, CreateView): 
+    form_class = VkForm
+    model = Raffle
     template_name = 'generator/rfl.html'
     success_url = '/thankyou/' 
+
+    def form_valid(self, form):
+        print(type(form.instance))
+        form.instance.creator = self.request.user
+        return super().form_valid(form)

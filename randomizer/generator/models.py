@@ -14,12 +14,12 @@ class Raffle(models.Model):
     description = models.TextField(max_length=500)
     link = models.URLField()
     winner = models.URLField()
-    time_create = models.DateField(auto_now_add=True)
-    time_update = models.DateField(auto_now=True)
+    time_create = models.DateTimeField(auto_now_add=True)
+    time_update = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='raffles'
+        related_name='raffles',
     )
 
     class Meta:
