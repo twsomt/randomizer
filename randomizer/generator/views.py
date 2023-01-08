@@ -62,21 +62,29 @@ class VkForm(LoginRequiredMixin, CreateView):
         form.instance.creator = self.request.user
         user = form.instance.creator
         pk = form.instance.pk
+
         # title
         title = form.instance.title
-        now = dt.now().strftime("%d-%m-%Y %H:%M:%S")
+        now = dt.now()
+        now_text = now.strftime("%d-%m-%Y %H:%M:%S")
         print(now)
         if not title:
-            form.instance.title = f'Конкурс #{user}_{now}'
+            form.instance.title = f'Конкурс #{user} {now_text}'
 
         # description
         description = form.instance.description
         if not description:
-            form.instance.description = f'Конкурс #{user}_{now}'
+            form.instance.description = f'Конкурс #{user} {now_text}'
 
-         # winner
+        # winner
         winner = form.instance.winner
         if not winner:
             form.instance.winner = 'https://vk.com/id10883203'
+
+        # slug
+        slug = form.instance.slug
+        now_slug = now.strftime("%d%m%Y%H%M%S")
+        if not slug:
+            form.instance.slug = f'{user}_{now_slug}'
         
         return super().form_valid(form)

@@ -14,11 +14,12 @@
 
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
         aria-labelledby="panelsStayOpen-headingOne">
+        {% if user.client.api_vk_key %}
         <div class="accordion-body">
-          
-          
-          
-          
+
+
+
+
           <table class="table">
             <caption>При проведении быстрого конкурса дополнительные поля будут заполнены автоматически</caption>
 
@@ -43,9 +44,9 @@
                 Учитывать только участников группы
               </div>
           </table>
-          <button type="submit" class="btn btn-outline-primary">Определить победителя</buttonЮ>
-            </form>
-            <br>
+          <button type="submit" class="btn btn-outline-primary">Определить победителя</button>
+          </form>
+          <br>
 
 
 
@@ -54,6 +55,14 @@
 
 
         </div>
+        {% else %}
+        <div class="alert alert-danger">
+          Отсутствует корректный API - ключ
+          <br>
+          <br>
+          <button class="btn btn-primary">Получить ключ</button>
+        </div>
+        {% endif %}
       </div>
     </div>
     <div class="accordion-item">
@@ -65,6 +74,7 @@
       </h2>
       <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
         aria-labelledby="panelsStayOpen-headingOne">
+        {% if raffles %}
         <div class="accordion-body">
           <fieldset>
             <table class="table table-hover ">
@@ -94,6 +104,14 @@
 
           </fieldset>
         </div>
+        {% else %}
+        <div class="alert alert-secondary">
+          Конкурсы не проводились. Пока что
+          <br>
+          <br>
+          <a href="{% url 'generator:new_raffle' %}"><button class="btn btn-primary">Провести первый конкурс</button></a>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>

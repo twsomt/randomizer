@@ -24,18 +24,18 @@
                 <td><a href="{{raffle.winner}}" target="_blank">{{raffle.winner}}</a></td>
             </tr>
             <tr>
-                <td>Дата создания</td>
-                <td>{{raffle.time_create|date:"d E Y"}}</td>
+                <td>Дата и время создания</td>
+                <td>{{raffle.time_create|date:"d E Y H:i:s"}}</td>
             </tr>
             {% if raffle.time_create|date:"d E Y H i s" == raffle.time_update|date:"d E Y H i s" %}
             <tr>
-                <td>Дата изменения</td>
+                <td>Дата и время изменения</td>
                 <td>Изменения отсутствуют</td>
             </tr>
             {% else %}
             <tr>
-                <td>Дата изменения</td>
-                <td>{{raffle.time_update|date:"d E Y"}}</td>
+                <td>Дата и время изменения</td>
+                <td>{{raffle.time_update|date:"d E Y H:i:s"}}</td>
             </tr>
             {% endif %}
             <tr>

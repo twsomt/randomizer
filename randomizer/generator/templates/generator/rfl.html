@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Новый конкурс{% endblock %}
 {% block content %}
+{% load user_filters %}
+
+
 {% if user.client.api_vk_key %}
 {% if form.errors %}
 {% for field in form %}
@@ -16,15 +19,72 @@
 </div>
 {% endfor %}
 {% endif %}
-<form method="post" action="{% url 'generator:new_raffle' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Отправить">
-  </fo>
+
+
+<div class="p-2 bg-light">
+  <legend>
+    <h2>Новый конкурс</h2>
+  </legend>
+  <div class="card col-md-7 p-4 text-break">
+    <form method="post" action="{% url 'generator:new_raffle' %}">
+      {% csrf_token %}
+
+      {% for field in form %}
+
+      <div class="mb-2">
+        {% if field.name == 'is_subscribers'%}
+        <input type="checkbox" id="id_{{ field.name }}" name="id_{{ field.name }}" checked="checked">
+        Учитывать только участников группы
+        {% else %}
+        <label class="form-label" for="{{ field.id_for_label }}">
+          {{ field.label }}
+          {% if field.field.required %}
+          <span class="required text-danger">*</span>
+          {% endif %}
+        </label>
+
+        {% if field.name == 'link' %}
+          {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
+        {% elif field.name == 'title'%}
+          {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
+        {% elif field.name == 'description'%}
+          {{ field|addplaceholder:'Розыгрыш миллиона долларов'}}
+        {% elif field.name == 'qty_winners'%}
+          {{ field|addplaceholder:'1'}}
+        {% else %}
+          {{ field|addclass:'form-control' }}
+        {% endif %}
+
+
+
+
+        {% if field.help_text %}
+        <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+          {{ field.help_text|safe }}
+        </small>
+        {% endif %}
+        {% endif %}
+      </div>
+      {% endfor %}
+
+
+
+
+
+
+
+      <a href="#"><button type="submit" class="btn btn-outline-primary">Определить победителя</button></a>
+    </form>
+  </div>
+
+
   {% else %}
   <div class="alert alert-danger">
-    Отсутствует корректный API-ключ
+    Отсутствует корректный API - ключ
+    <br>
+    <br>
+    <button class="btn btn-primary">Получить ключ</button>
   </div>
-  
   {% endif %}
+
   {% endblock %}
