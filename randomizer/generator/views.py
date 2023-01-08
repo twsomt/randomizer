@@ -15,9 +15,12 @@ def authorized_only(func):
 
 @authorized_only
 def index(request):
-    raffles = (Raffle.objects.filter(creator=request.user))[:5]
+    raf = (Raffle.objects.filter(creator=request.user))
+    len_raf = len(raf)
+    raffles = raf[:5]
     context = {
-        'raffles': raffles
+        'raffles': raffles,
+        'len_raf': len_raf,
     }
 
     return render(request, 'generator/index.html', context)
