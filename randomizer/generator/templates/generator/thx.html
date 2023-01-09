@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="p-2 bg-light border">
+    <br>
+    <div class="card col-md-12 p-4 text-break">
     <legend>
-        <h2>Конкурс завершен успешно!</h2>
+        <h4>Конкурс завершен успешно!</h4>
     </legend>
     {% for raffle in raffles%}
-    <div class="card col-md-7 p-4 text-break">
         <table class="table">
             <tr>
                 <td>Заголовок</td>

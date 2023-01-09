@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView
 from generator.forms import VkForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import datetime as dt
+from generator.functions import get_winner
 
 def authorized_only(func):
     def check_user(request, *args, **kwargs):
@@ -82,7 +83,13 @@ class VkForm(LoginRequiredMixin, CreateView):
         # winner
         winner = form.instance.winner
         if not winner:
-            form.instance.winner = 'https://vk.com/id10883203'
+            winners = get_winner()
+            str_winners = ''
+            for i in winners:
+                str_winners += i
+                str_winners += '\n'
+
+            form.instance.winner = str_winners
 
         # slug
         slug = form.instance.slug

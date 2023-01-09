@@ -22,10 +22,12 @@
 
 
 <div class="p-2 bg-light">
+  <br>
+  <div class="card col-md-12 p-4 text-break">
   <legend>
-    <h2>Новый конкурс</h2>
+    <h4>Новый конкурс</h4>
   </legend>
-  <div class="card col-md-7 p-4 text-break">
+  
     <form method="post" action="{% url 'generator:new_raffle' %}">
       {% csrf_token %}
 

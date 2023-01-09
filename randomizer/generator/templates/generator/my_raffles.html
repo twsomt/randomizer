@@ -2,55 +2,59 @@
 {% block title %}Мои конкурсы{% endblock %}
 {% block content %}
 <div class="p-2 bg-light ">
-    <legend>
-        <h2>Все мои конкурсы</h2>
-    </legend>
-    
-    {% for raffle in raffles%}
-    <div class="card col-md-7 p-4 text-break">
-        <table class="table">
-            <tr>
-                <td>Заголовок</td>
-                <td><a href="{% url 'generator:raffle_page' raffle.slug %}">{{raffle.title}}</a></td>
-            </tr>
-            <tr>
-                <td>Описание</td>
-                <td>{{raffle.description}}</td>
-            </tr>
-            <tr>
-                <td>Ссылка на пост</td>
-                <td><a href="{{raffle.link}}" target="_blank">{{raffle.link}}</a></td>
-            </tr>
-            <tr>
-                <td>Победитель</td>
-                <td><a href="{{raffle.winner}}" target="_blank">{{raffle.winner}}</a></td>
-            </tr>
-            <tr>
-                <td>Дата и время создания</td>
-                <td>{{raffle.time_create|date:"d E Y H:i:s"}}</td>
-            </tr>
-            {% if raffle.time_create|date:"d E Y H i s" == raffle.time_update|date:"d E Y H i s" %}
-            <tr>
-                <td>Дата и время изменения</td>
-                <td>Изменения отсутствуют</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td>Дата и время изменения</td>
-                <td>{{raffle.time_update|date:"d E Y H:i:s"}}</td>
-            </tr>
-            {% endif %}
-            <tr>
-                <td>Автор конкурса</td>
-                {% if user.first_name and user.last_name %}
-                <td>{{ user.get_full_name }}</td>
+    <br>
+    <div class="card col-md-12 p-4 text-break">
+        <legend>
+            <h4>Все мои конкурсы</h4>
+        </legend>
+
+        {% for raffle in raffles%}
+        <div class="card col-md-7 p-4 text-break">
+            <table class="table">
+                <tr>
+                    <td>Заголовок</td>
+                    <td><a href="{% url 'generator:raffle_page' raffle.slug %}">{{raffle.title}}</a></td>
+                </tr>
+                <tr>
+                    <td>Описание</td>
+                    <td>{{raffle.description}}</td>
+                </tr>
+                <tr>
+                    <td>Ссылка на пост</td>
+                    <td><a href="{{raffle.link}}" target="_blank">{{raffle.link}}</a></td>
+                </tr>
+                <tr>
+                    <td>Победитель</td>
+                    <td><a href="{{raffle.winner}}" target="_blank">{{raffle.winner}}</a></td>
+                </tr>
+                <tr>
+                    <td>Дата и время создания</td>
+                    <td>{{raffle.time_create|date:"d E Y H:i:s"}}</td>
+                </tr>
+                {% if raffle.time_create|date:"d E Y H i s" == raffle.time_update|date:"d E Y H i s" %}
+                <tr>
+                    <td>Дата и время изменения</td>
+                    <td>Изменения отсутствуют</td>
+                </tr>
                 {% else %}
-                <td>{{ user.get_username }}</td>
+                <tr>
+                    <td>Дата и время изменения</td>
+                    <td>{{raffle.time_update|date:"d E Y H:i:s"}}</td>
+                </tr>
                 {% endif %}
-            </tr>
-        </table>
-    </div>
+                <tr>
+                    <td>Автор конкурса</td>
+                    {% if user.first_name and user.last_name %}
+                    <td>{{ user.get_full_name }}</td>
+                    {% else %}
+                    <td>{{ user.get_username }}</td>
+                    {% endif %}
+                </tr>
+            </table>
+        </div>
+    
     <br>
     {% endfor %}
+</div>
 </div>
 {% endblock %}
