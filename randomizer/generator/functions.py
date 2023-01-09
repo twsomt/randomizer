@@ -4,11 +4,8 @@ import random
 # критический тест на 0 лайков, 0 комментов, 0 репостов, 0 подписчиков
 
 
-def get_winner():
-    url = 'https://vk.com/wall-177150330_6606'
-    qty_winners = 1
+def get_winner(url, qty_winners, is_subscribers):
     token = 'vk1.a.dzBtvqC_ZKVp2adsEs5wWQ0GOKeZW3jRWgyQVri8x5XwrJ3WMqDnQswXXlt2yJZsultnd6FTqlBtllZYQAU-AEXfUR2XYMq-ujDo8ul61fHeKM285GPtopLt1DlMaZDnel-JBA8gqRwqjE3wji5RbO11GFnnYoQXufdGjU1a-S_ktRcWp_0NhJeH33DFwLQHiFiLyJ2bxtP3q2hpTVjGIQ'
-    is_subscribers = True
     try:
         print('Подождите, пожалуйста. Сейчас будет происходить магия.')
         time.sleep(0.3)

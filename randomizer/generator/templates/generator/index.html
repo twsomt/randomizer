@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Лучшие конкурсы тут{% endblock %}
 {% block content %}
+{% load user_filters %}
 <div class="dropdown-menu p-4 text-muted" style="max-width: 200px;">
   <p>
     Пример текста, который свободно перемещается в выпадающем меню.
@@ -12,66 +13,71 @@
 <div class="p-2 bg-light">
   <br>
   <div class="card col-md-12 p-4 text-break">
-  <legend>
-    <h4>Дашборд</h4>
-    
-    <table class="table table-borderless">
-    
+    <legend>
+      <h4>Дашборд</h4>
+
+      <table class="table table-borderless">
+
         <td>
           {% if user.first_name %}
-            Пользователь: {{ user.first_name }}
+          Пользователь: {{ user.first_name }}
           {% else %}
-            Пользователь: {{ user.get_username }}
+          Пользователь: {{ user.get_username }}
           {% endif %}
         </td>
         <td>
-          Конкурсов проведено: {{ len_raf }} 
+          Конкурсов проведено: {{ len_raf }}
         </td>
 
 
-    </table>
-  </legend>
+      </table>
+    </legend>
   </div>
   <br>
   <div class="card col-md-12 p-4 text-break">
-  <fieldset>
-    <legend>
-      <h4>Мои последние конкурсы</h4>
-    </legend>
-    {% if len_raf %}
-    <table class="table table-hover ">
-      <caption>Показана краткая информация для последних 5 конкурсов. Для получения полной
-        информации перейдите на страницу с подробностями</caption>
-      <thead>
-        <tr class="nohower">
-          <td><b>Описание</b></td>
-          <td><b>Ccылка на пост</b></td>
-          <td><b>Победитель<b></td>
-          <td><b>Дата проведения<b></td>
-        </tr>
-      </thead>
-      <tbody>
-        {% for raffle in raffles%}
-        <tr onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}'; return false">
-          <td>{{ raffle.description|truncatechars:45 }}</td>
-          <td>{{ raffle.link }}</td>
-          <td>{{ raffle.winner }}</td>
-          <td>{{ raffle.time_create|date:"d E Y"}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <a href="{% url 'generator:my_raffles' %}"><button type="submit"
-        class="btn btn-outline-primary">Подробнее</button></a>
+    <fieldset>
+      <legend>
+        <h4>Мои последние конкурсы</h4>
+      </legend>
+      {% if len_raf %}
+      <table class="table table-hover ">
+        <caption>Показана краткая информация для последних 5 конкурсов. Для получения полной
+          информации перейдите на страницу с подробностями</caption>
+        <thead>
+          <tr class="nohower">
+            <td><b>Описание</b></td>
+            <td><b>Ccылка на пост</b></td>
+            <td><b>Победитель<b></td>
+            <td><b>Дата проведения<b></td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for raffle in raffles%}
+          <tr onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}'; return false">
+            <td>{{ raffle.description|truncatechars:45 }}</td>
+            <td>{{ raffle.link }}</td>
+            <td>
+              {% for win in raffle.winner|str_to_list %}
+                {{ win }}
+              {% if not forloop.last %}<br>{% endif %}
+              {% endfor %}
+            </td>
+            <td>{{ raffle.time_create|date:"d E Y"}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'generator:my_raffles' %}"><button type="submit"
+          class="btn btn-outline-primary">Подробнее</button></a>
 
-  </fieldset>
-  {% else %}
+    </fieldset>
+    {% else %}
     Конкурсы не проводились. Пока что
     <br>
     <br>
     <a class="nav-link" href="{% url 'generator:new_raffle' %}"><button type="submit"
-      class="btn btn-outline-primary">Провести первый конкурс</button></a>
-  {% endif %}
-</div>
+        class="btn btn-outline-primary">Провести первый конкурс</button></a>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}
