@@ -31,7 +31,6 @@
                     {% endif %}
                 </td>
                 <td>
-                    
                     {% for win in raffle.winner|str_to_list %}
                       <a href="{{ win }}" target="_blank">{{ win }}</a>
                       {% if not forloop.last %}<br>{% endif %}
