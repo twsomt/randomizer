@@ -56,10 +56,6 @@
         {% else %}
           {{ field|addclass:'form-control' }}
         {% endif %}
-
-
-
-
         {% if field.help_text %}
         <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
           {{ field.help_text|safe }}
@@ -68,13 +64,6 @@
         {% endif %}
       </div>
       {% endfor %}
-
-
-
-
-
-
-
       <a href="#"><button type="submit" class="btn btn-outline-primary">Определить победителя</button></a>
     </form>
   </div>

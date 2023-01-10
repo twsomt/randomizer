@@ -1,63 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load user_filters %}
-
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/media.css">
 <div class="p-2 bg-light border">
     <br>
     <div class="card col-md-12 p-4 text-break">
-    <legend>
-        <h4>Конкурс завершен успешно!</h4>
-    </legend>
-    {% for raffle in raffles%}
+        <legend>
+            <h4>Конкурс завершен успешно!</h4>
+        </legend>
+        {% for raffle in raffles%}
         <table class="table">
             <tr>
-                <td>Заголовок</td>
-                <td>{{raffle.title}}</td>
+                <td><span class="align-middle">Заголовок</span></td>
+                <td><span class="align-middle">{{ raffle.title }}</span></td>
             </tr>
             <tr>
-                <td>Описание</td>
-                <td>{{raffle.description}}</td>
+                <td><span class="align-middle">Описание</span></td>
+                <td><span class="align-middle">{{ raffle.description }}</span></td>
             </tr>
             <tr>
-                <td>Ссылка на пост</td>
-                <td><a href="{{raffle.link}}" target="_blank">{{raffle.link}}</a></td>
-            </tr>
-            <tr>
-                <td>
-                    {% if raffle.winner|str_to_list|length == 1 %}
-                      Победитель
-                    {% else %}
-                      Победители
-                    {% endif %}
-                </td>
-                <td>
-                    {% for win in raffle.winner|str_to_list %}
-                      <a href="{{ win }}" target="_blank">{{ win }}</a>
-                      {% if not forloop.last %}<br>{% endif %}
-                    {% endfor %}
+                <td><span class="align-middle">Ссылка на пост</td>
+                <td><span class="align-middle"><a href="{{ raffle.link }}" target="_blank">{{raffle.link}}</a></span>
                 </td>
             </tr>
             <tr>
-                <td>Дата и время создания</td>
-                <td>{{raffle.time_create|date:"d E Y H:i:s"}}</td>
+                <td><span class="align-middle">
+                        {% if raffle.winner|str_to_list|length == 1 %}
+                        Победитель
+                        {% else %}
+                        Победитель
+                        {% endif %}
+                    </span>
+                </td>
+                <td class="block1">
+                    <div class="spinner-border text-primary" role="status">
+                    </div>
+                </td>
+                <td class="block2">
+                    <span class="align-middle">
+                        {% for win in raffle.winner|str_to_list %}
+                        <a href="{{ win }}" target="_blank">{{ win }}</a>
+                        {% if not forloop.last %}<br>{% endif %}
+                        {% endfor %}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><span class="align-middle">Дата и время создания</span></td>
+                <td><span class="align-middle">{{ raffle.time_create|date:"d E Y H:i:s" }}</span></td>
             </tr>
             {% if raffle.time_create|date:"d E Y H i s" == raffle.time_update|date:"d E Y H i s" %}
             <tr>
-                <td>Дата и время изменения</td>
-                <td>Изменения отсутствуют</td>
+                <td><span class="align-middle">Дата и время изменения</span></td>
+                <td><span class="align-middle">Изменения отсутствуют</span></td>
             </tr>
             {% else %}
             <tr>
-                <td>Дата и время изменения</td>
-                <td>{{raffle.time_update|date:"d E Y H:i:s"}}</td>
+                <td><span class="align-middle">Дата и время изменения</span></td>
+                <td><span class="align-middle">{{ raffle.time_update|date:"d E Y H:i:s" }}</span></td>
             </tr>
             {% endif %}
             <tr>
-                <td>Автор конкурса</td>
+                <td><span class="align-middle">Автор конкурса</span></td>
                 {% if user.first_name and user.last_name %}
-                <td>{{ user.get_full_name }}</td>
+                <td><span class="align-middle">{{ user.get_full_name }}</span></td>
                 {% else %}
-                <td>{{ user.get_username }}</td>
+                <td><span class="align-middle">{{ user.get_username }}</span></td>
                 {% endif %}
             </tr>
         </table>
@@ -66,11 +78,18 @@
     </div>
 </div>
 {% endfor %}
+
 <script>
-    $(function() {
-    setTimeout(function() {
-        $('#overlay').modal('show');
-    }, 5000);
-});
+    jQuery(document).ready(function($){
+        $('.block2').hide();
+        setTimeout(() => {
+            $('.block1').hide();
+            $('.block2').fadeIn();
+        },1000)
+        
+    })
 </script>
+
+
+
 {% endblock %}
