@@ -16,6 +16,10 @@ class Raffle(models.Model):
     is_subscribers = models.BooleanField(default=True, verbose_name='Учитывать только участников группы')
     qty_winners = models.PositiveIntegerField(verbose_name='Введите желаемое количество победителей:')
     winner = models.TextField(verbose_name='Победитель')
+    winner_url = models.TextField(verbose_name='Ссылка на страницу победителя')
+    winner_photo = models.TextField(verbose_name='Ссылка на фото победителя')
+    winner_first_name = models.TextField(verbose_name='Имя победителя')
+    winner_last_name = models.TextField(verbose_name='Фамилия победителя')
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания конкурса')
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время изменения конкурса')
     creator = models.ForeignKey(
