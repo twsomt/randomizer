@@ -62,8 +62,10 @@
                 {% endif %}
             </tr>
         </table>
-        <a href="{% url 'generator:my_raffles' %}"><button type="submit" class="btn btn-outline-primary">Все мои
-                конкурсы</button></a>
+        <div>
+            <a href="{% url 'generator:my_raffles' %}" class="align-end"><button type="submit" class="btn btn-outline-primary">Все мои конкурсы</button></a>
+            <a href="#" class='float-end'><button type="submit" class="btn btn-outline-primary">Повторить конкурс</button></a>
+        </div>
     </div>
 </div>
 {% endfor %}

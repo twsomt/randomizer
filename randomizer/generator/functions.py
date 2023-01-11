@@ -182,7 +182,7 @@ def get_winner(url, qty_winners, is_subscribers):
                 print(x)
                 
                 if is_sub(x):
-                    res.add(f'https://vk.com/id{x}')
+                    res.add(f'{x}')
 
                 if len(res) == qty_winners:
                     break
@@ -193,8 +193,25 @@ def get_winner(url, qty_winners, is_subscribers):
 
             for i in range(qty_winners):
                 win_id = winner_id[i]['id']
-                res.append(f'https://vk.com/id{win_id}')
-        return res
+                res.append(f'{win_id}')
+
+
+        def get_fname_l_name_photo(res):
+                time.sleep(0.34)
+                response = requests.get('https://api.vk.com/method/users.get',
+                                        params={
+                                            'access_token': token,
+                                            'v': version,
+                                            'user_ids': ', '.join(list(map(str, res))),
+                                            'fields': 'photo_50',
+                                        }
+                                        )
+                data = response.json()['response']
+                # if not data:  # если закончились комменты, прерываем цикл запросов
+                
+                return data
+
+        return get_fname_l_name_photo(res)
     except:
         print('Произошла непредвиденная ошибка')
         return -1

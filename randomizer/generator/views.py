@@ -5,6 +5,7 @@ from generator.forms import VkForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import datetime as dt
 from generator.functions import get_winner
+from random import randint
 
 
 def authorized_only(func):
@@ -52,9 +53,11 @@ def my_raffles(request):
 
 @authorized_only
 def thankyou(request):
+    delay = randint(1000, 1500)
     raffles = (Raffle.objects.filter(creator=request.user))[:1]
     context = {
-        'raffles': raffles
+        'raffles': raffles,
+        'delay': delay,
     }
     return render(request, 'generator/thx.html', context)
 
@@ -97,8 +100,8 @@ class VkForm(LoginRequiredMixin, CreateView):
                 form.instance.link, form.instance.qty_winners, form.instance.is_subscribers)
             str_winners = ''
             for i in winners:
-                str_winners += i
-                str_winners += ';'
+                str_winners += str(i)
+                str_winners += '/////'
 
             form.instance.winner = str_winners
 

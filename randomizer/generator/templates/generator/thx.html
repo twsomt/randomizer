@@ -1,11 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load user_filters %}
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/bootstrap-grid.min.css">
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/media.css">
 <div class="p-2 bg-light border">
     <br>
     <div class="card col-md-12 p-4 text-break">
@@ -13,7 +8,7 @@
             <h4>Конкурс завершен успешно!</h4>
         </legend>
         {% for raffle in raffles%}
-        <table class="table">
+        <table class="table align-middle">
             <tr>
                 <td><span class="align-middle">Заголовок</span></td>
                 <td><span class="align-middle">{{ raffle.title }}</span></td>
@@ -29,11 +24,7 @@
             </tr>
             <tr>
                 <td><span class="align-middle">
-                        {% if raffle.winner|str_to_list|length == 1 %}
-                        Победитель
-                        {% else %}
-                        Победитель
-                        {% endif %}
+                        Победители
                     </span>
                 </td>
                 <td class="block1">
@@ -42,10 +33,15 @@
                 </td>
                 <td class="block2">
                     <span class="align-middle">
-                        {% for win in raffle.winner|str_to_list %}
-                        <a href="{{ win }}" target="_blank">{{ win }}</a>
-                        {% if not forloop.last %}<br>{% endif %}
-                        {% endfor %}
+                            {% for win in raffle.winner|str_to_list %}
+                            {% if not forloop.last %} 
+                                <div class="list">
+                                    <img src="{{ win|link }}" alt="Победитель" class="rounded">
+                                    <a href="https://vk.com/{{ win|id }}/" target="_blank"> {{ win|first_name }} {{ win|last_name }}</a>
+                                </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
                     </span>
                 </td>
             </tr>
@@ -73,22 +69,51 @@
                 {% endif %}
             </tr>
         </table>
-        <a href="{% url 'generator:my_raffles' %}"><button type="submit" class="btn btn-outline-primary">Все мои
-                конкурсы</button></a>
+        
+        
+        
+        <div>
+            <a href="{% url 'generator:my_raffles' %}" class="align-end"><button type="submit" class="btn btn-outline-primary">Все мои конкурсы</button></a>
+            <a href="#" class='float-end'><button type="submit" class="btn btn-outline-primary">Повторить конкурс</button></a>
+        </div>
     </div>
 </div>
-{% endfor %}
 
+{% endfor %}
 <script>
     jQuery(document).ready(function($){
         $('.block2').hide();
         setTimeout(() => {
             $('.block1').hide();
             $('.block2').fadeIn();
-        },1000)
+        },{{ delay }})
         
     })
 </script>
+<style>
+.list {
+  margin: 5px;
+  opacity: 0;
+  animation: fade 1s linear forwards;
+}
+div:nth-of-type() {
+  animation-delay: 1s;
+}
+div:nth-of-type() {
+  animation-delay: 2s;
+}
+div:nth-of-type() {
+  animation-delay: 3s;
+}
+div:nth-of-type() {
+  animation-delay: 4s;
+}
+@keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+</style>
 
 
 
