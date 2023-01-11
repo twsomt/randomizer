@@ -72,7 +72,7 @@ class VkForm(LoginRequiredMixin, CreateView):
 
         form.instance.creator = self.request.user
         user = form.instance.creator
-        pk = form.instance.pk
+        # pk = form.instance.pk
 
         # title
         title = form.instance.title
@@ -96,13 +96,15 @@ class VkForm(LoginRequiredMixin, CreateView):
         # winner
         winner = form.instance.winner
         if not winner:
-            winners = get_winner(
+            winners = wins = get_winner(
                 form.instance.link, form.instance.qty_winners, form.instance.is_subscribers)
-            str_winners = ''
-            for i in winners:
-                str_winners += str(i)
-                str_winners += '/////'
-
-            form.instance.winner = str_winners
+            
+            length_winners = len(winners)
+            for i in range(length_winners):
+                form.instance.winner += f'{winners[i][0]}#'
+                form.instance.winner_url += f'{winners[i][1]}#'
+                form.instance.winner_photo += f'{winners[i][2]}#'
+                form.instance.winner_first_name += f'{winners[i][3]}#'
+                form.instance.winner_last_name += f'{winners[i][4]}#'
 
         return super().form_valid(form)

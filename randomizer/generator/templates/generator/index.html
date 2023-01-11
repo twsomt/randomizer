@@ -57,7 +57,7 @@
             <td>{{ raffle.description|truncatechars:45 }}</td>
             <td>{{ raffle.link }}</td>
             <td>
-              {% for win in raffle.winner|str_to_list %}
+              {% for win in raffle.winner_url|str_to_list %}
                 {{ win }}
               {% if not forloop.last %}<br>{% endif %}
               {% endfor %}

@@ -1,217 +1,227 @@
+'''
+коды ошибок
+-1 на посте отсутствует автивность
+-2 некорректные входные данные
+'''
+
 import requests
 import time
 import random
 # критический тест на 0 лайков, 0 комментов, 0 репостов, 0 подписчиков
 
 
-def get_winner(url, qty_winners, is_subscribers):
+def get_winner(url, qty_winners=3, is_subscribers=True):
+    '''
+    Функция определяет победителя (побетелей) из поста Вконтакте
+    и возвращает список:
+    [
+        ['айди1', 'ссылкаВК1', 'фото1', 'имя1', 'фамилия1'], # победитель1
+        ['айди2', 'ссылкаВК2', 'фото2', 'имя2', 'фамилия2'], # победитель2
+        ['айди3', 'ссылкаВК3', 'фото3', 'имя3', 'фамилия3'], # победитель3
+        ]
+    '''
     token = 'vk1.a.dzBtvqC_ZKVp2adsEs5wWQ0GOKeZW3jRWgyQVri8x5XwrJ3WMqDnQswXXlt2yJZsultnd6FTqlBtllZYQAU-AEXfUR2XYMq-ujDo8ul61fHeKM285GPtopLt1DlMaZDnel-JBA8gqRwqjE3wji5RbO11GFnnYoQXufdGjU1a-S_ktRcWp_0NhJeH33DFwLQHiFiLyJ2bxtP3q2hpTVjGIQ'
-    try:
-        print('Подождите, пожалуйста. Сейчас будет происходить магия.')
-        time.sleep(0.3)
-        version = 5.131  # надо ли получать версию?
 
-        def check_input_data(url, qty_winners=1):
-            return 'https://vk.com/' in url and isinstance(qty_winners, int)
+    time.sleep(0.3)
+    version = 5.131  # надо ли получать версию?
 
-        def check_output_data(len_parc):
-            return len_parc >= 1
+    def check_input_data(url, qty_winners=1):
+        return 'https://vk.com/' in url and isinstance(qty_winners, int)
 
-        #  проверка входящих данных
-        if not check_input_data(url, qty_winners):
-            print('Некорректные входные данные')
-            return -1
+    def check_output_data(len_parc):
+        return len_parc >= 1
 
-        item_id = int(url[url.rfind('_') + 1:])
-        owner_id = int(url[url.find('-'): url.rfind('_')])
-        participants = []  # айди, имя, фамилия, тип участия, вес участия
+    #  проверка входящих данных
+    if not check_input_data(url, qty_winners):
+        return -2
 
-        def get_likes_users():
-            weigth = 1  # вес участия
-            offset = 0
-            while True:
-                try:
-                    time.sleep(0.34)
-                    response = requests.get('https://api.vk.com/method/likes.getList',
-                                            params={
-                                                'access_token': token,
-                                                'v': version,
-                                                'type': 'post',
-                                                'owner_id': owner_id,
-                                                'item_id': item_id,
-                                                'page_url': url,
-                                                'extended': 1,
-                                                'offset': offset
-                                            }
-                                            )
+    item_id = int(url[url.rfind('_') + 1:])
+    owner_id = int(url[url.find('-'): url.rfind('_')])
+    participants = []  # айди, имя, фамилия, тип участия, вес участия
 
-                    data = response.json()['response']['items']
-                    if not data:  # если закончились лайки, прерываем цикл запросов
-                        break
-                    for i in data:
-                        participants.append({'id': i['id'],
-                                            'first_name': i['first_name'],
-                                             'last_name': i['last_name'],
-                                             'type': 'like',
-                                             'weigth': weigth}
-                                            )
-                    offset += 100
-                except Exception as e:
-                    print(e.code)
-                    print(e.message)
-
-        def get_comments_users():
-            weigth = 1  # вес участия
-            offset = 0
-            while True:
-                try:
-                    time.sleep(0.34)
-                    response = requests.get('https://api.vk.com/method/wall.getComments',
-                                            params={
-                                                'access_token': token,
-                                                'v': version,
-                                                'owner_id': owner_id,
-                                                'post_id': item_id,
-                                                'extended': 1,
-                                                'count': 100,
-                                                'offset': offset
-                                            }
-                                            )
-                    data = response.json()['response']['items']
-                    if not data:  # если закончились комменты, прерываем цикл запросов
-                        break
-                    for i in data:
-                        participants.append({'id': i['from_id'],
-                                            'first_name': 'ИмяИмя',
-                                             'last_name': 'ФамилияФамилия',
-                                             'type': 'comment',
-                                             'weigth': weigth}
-                                            )
-                    offset += 100
-                except Exception as e:
-                    print(e.code)
-                    print(e.message)
-
-        def get_reposts_users():
-            weigth = 1  # вес участия
-            offset = 0
-            while True:
-                try:
-                    time.sleep(0.34)
-                    response = requests.get('https://api.vk.com/method/likes.getList',
-                                            params={
-                                                'access_token': token,
-                                                'v': version,
-                                                'type': 'post',
-                                                'owner_id': owner_id,
-                                                'item_id': item_id,
-                                                'page_url': url,
-                                                'extended': 1,
-                                                'offset': offset,
-                                                'filter': 'copies'
-                                            }
-                                            )
-
-                    data = response.json()['response']['items']
-                    if not data:  # если закончились репосты, прерываем цикл запросов
-                        break
-                    for i in data:
-                        participants.append({'id': i['id'],
-                                            'first_name': i['first_name'],
-                                             'last_name': i['last_name'],
-                                             'type': 'repost',
-                                             'weigth': weigth}
-                                            )
-                    offset += 100
-                except Exception as e:
-                    print(e.code)
-                    print(e.message)
-
-
-        def is_sub(id_user):
+    def get_likes_users():
+        weigth = 1  # вес участия
+        offset = 0
+        while True:
             try:
                 time.sleep(0.34)
-                response = requests.get('https://api.vk.com/method/groups.isMember',
-                                            params={
-                                                'access_token': token,
-                                                'v': version,
-                                                'group_id': abs(owner_id),
-                                                'user_id': id_user,
-                                            }
-                                            )
-                return response.json()['response']
+                response = requests.get('https://api.vk.com/method/likes.getList',
+                                        params={
+                                            'access_token': token,
+                                            'v': version,
+                                            'type': 'post',
+                                            'owner_id': owner_id,
+                                            'item_id': item_id,
+                                            'page_url': url,
+                                            'extended': 1,
+                                            'offset': offset
+                                        }
+                                        )
 
+                data = response.json()['response']['items']
+                if not data:  # если закончились лайки, прерываем цикл запросов
+                    break
+                for i in data:
+                    participants.append({'id': i['id'],
+                                        'first_name': i['first_name'],
+                                            'last_name': i['last_name'],
+                                            'type': 'like',
+                                            'weigth': weigth}
+                                        )
+                offset += 100
+            except Exception as e:
+                print(e.code)
+                print(e.message)
+
+    def get_comments_users():
+        weigth = 1  # вес участия
+        offset = 0
+        while True:
+            try:
+                time.sleep(0.34)
+                response = requests.get('https://api.vk.com/method/wall.getComments',
+                                        params={
+                                            'access_token': token,
+                                            'v': version,
+                                            'owner_id': owner_id,
+                                            'post_id': item_id,
+                                            'extended': 1,
+                                            'count': 100,
+                                            'offset': offset
+                                        }
+                                        )
+                data = response.json()['response']['items']
+                if not data:  # если закончились комменты, прерываем цикл запросов
+                    break
+                for i in data:
+                    participants.append({'id': i['from_id'],
+                                        'first_name': 'ИмяИмя',
+                                            'last_name': 'ФамилияФамилия',
+                                            'type': 'comment',
+                                            'weigth': weigth}
+                                        )
+                offset += 100
+            except Exception as e:
+                print(e.code)
+                print(e.message)
+
+    def get_reposts_users():
+        weigth = 1  # вес участия
+        offset = 0
+        while True:
+            try:
+                time.sleep(0.34)
+                response = requests.get('https://api.vk.com/method/likes.getList',
+                                        params={
+                                            'access_token': token,
+                                            'v': version,
+                                            'type': 'post',
+                                            'owner_id': owner_id,
+                                            'item_id': item_id,
+                                            'page_url': url,
+                                            'extended': 1,
+                                            'offset': offset,
+                                            'filter': 'copies'
+                                        }
+                                        )
+
+                data = response.json()['response']['items']
+                if not data:  # если закончились репосты, прерываем цикл запросов
+                    break
+                for i in data:
+                    participants.append({'id': i['id'],
+                                        'first_name': i['first_name'],
+                                            'last_name': i['last_name'],
+                                            'type': 'repost',
+                                            'weigth': weigth}
+                                        )
+                offset += 100
             except Exception as e:
                 print(e.code)
                 print(e.message)
 
 
-        # притянуть лайки
-        print('Собираем лайки ...')
-        get_likes_users()
-
-        # притянуть комменты
-        print('Собираем комменты ...')
-        get_comments_users()
-
-        # притянуть репосты
-        print('Собираем репосты ...')
-        get_reposts_users()
-
-        #  проверка выходящих данных
-        if not check_output_data(len(participants)):
-            print('На посте отсутствует активность')
-            return -1
-
-        qty_winners = min(len(participants), qty_winners)
-        # объявляем победителя
-        if qty_winners == 1:
-            print('Победитель найден!')
-            print('Вот ссылка на его страницу:')
-        else:
-            print('Победители найдены!')
-            print('Вот ссылки на их страницы:')
-
-
-        if is_subscribers:
-            res = set()
-            for _ in range(len(participants)):
-
-                id = random.sample(participants, 1)
-                x = id[0]['id']
-                print(x)
-                
-                if is_sub(x):
-                    res.add(f'{x}')
-
-                if len(res) == qty_winners:
-                    break
-            res = list(res)
-        else:
-            winner_id = random.sample(participants, qty_winners)
-            res = []
-
-            for i in range(qty_winners):
-                win_id = winner_id[i]['id']
-                res.append(f'{win_id}')
-
-
-        def get_fname_l_name_photo(res):
-                time.sleep(0.34)
-                response = requests.get('https://api.vk.com/method/users.get',
+    def is_sub(id_user):
+        try:
+            time.sleep(0.34)
+            response = requests.get('https://api.vk.com/method/groups.isMember',
                                         params={
                                             'access_token': token,
                                             'v': version,
-                                            'user_ids': ', '.join(list(map(str, res))),
-                                            'fields': 'photo_50',
+                                            'group_id': abs(owner_id),
+                                            'user_id': id_user,
                                         }
                                         )
-                data = response.json()['response']
-                # if not data:  # если закончились комменты, прерываем цикл запросов
-                
-                return data
+            return response.json()['response']
 
-        return get_fname_l_name_photo(res)
-    except:
-        print('Произошла непредвиденная ошибка')
+        except Exception as e:
+            print(e.code)
+            print(e.message)
+
+
+    # притянуть лайки
+    get_likes_users()
+
+    # притянуть комменты
+    get_comments_users()
+
+    # притянуть репосты
+    get_reposts_users()
+
+    #  проверка выходящих данных
+    if not check_output_data(len(participants)):
         return -1
+
+    # берем за основу меньшее из нужного кол-ва победителей и общего числа участников
+    qty_winners = min(len(participants), qty_winners)
+
+
+    # формируем список победителей без повторений
+    res = set()
+    for _ in range(len(participants)):
+
+        id = random.sample(participants, 1)
+        x = id[0]['id']  # вытягиваем айди из сложенного списка парципантов с доп параметрами. пока что только айди
+        
+        if is_subscribers:
+            if is_sub(x):
+                res.add(f'{x}')
+        else:
+            res.add(f'{x}')
+
+        if len(res) == qty_winners:
+            break
+    
+    # передаем список победителей дальше
+    res = list(res)
+
+    # получаем фото имена и фамилии победителей
+    def get_fname_l_name_photo(res):
+        time.sleep(0.34)
+        response = requests.get('https://api.vk.com/method/users.get',
+                                params={
+                                    'access_token': token,
+                                    'v': version,
+                                    'user_ids': ', '.join(list(map(str, res))),
+                                    'fields': 'photo_50',
+                                }
+                                )
+        data = response.json()['response']
+
+        res = []
+        for i in data:
+            res.append([value for key, value in i.items() if key in ('id', 'photo_50', 'first_name', 'last_name')])
+
+        # добавляем в результат ссылки на страницы победителей
+        for i in range(len(res)):
+            res[i].insert(1, f'https://vk.com/id{res[i][0]}/')
+
+        return res             
+
+    return get_fname_l_name_photo(res)
+
+
+# тесты
+# x = 'https://vk.com/wall-53141502_214585'
+# y = get_winner(x)
+# [print(i) for i in y]

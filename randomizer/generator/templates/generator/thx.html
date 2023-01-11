@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load user_filters %}
+
 <div class="p-2 bg-light border">
     <br>
     <div class="card col-md-12 p-4 text-break">
@@ -33,15 +34,17 @@
                 </td>
                 <td class="block2">
                     <span class="align-middle">
-                            {% for win in raffle.winner|str_to_list %}
-                            {% if not forloop.last %} 
-                                <div class="list">
-                                    <img src="{{ win|link }}" alt="Победитель" class="rounded">
-                                    <a href="https://vk.com/id{{ win|id }}/" target="_blank"> {{ win|first_name }} {{ win|last_name }}</a>
-                                </div>
-                            {% endif %}
-                            {% endfor %}
+                        {% define raffle.winner_url|str_to_list as winner_url %}
+                        {% define raffle.winner_photo|str_to_list as winner_photo %}
+                        {% define raffle.winner_first_name|str_to_list as winner_first_name %}
+                        {% define raffle.winner_last_name|str_to_list as winner_last_name %}
+
+                        {% for i in raffle.winner|str_to_list|length|make_range %}
+                        <div class="list">
+                            <img src="{{ winner_photo|index:i }}" alt="Победитель" class="rounded">
+                            <a href="{{ winner_url|index:i }}" target="_blank"> {{ winner_first_name|index:i }} {{ winner_last_name|index:i }}</a>
                         </div>
+                        {% endfor %}
                     </span>
                 </td>
             </tr>
@@ -69,50 +72,61 @@
                 {% endif %}
             </tr>
         </table>
-        
-        
-        
+
+
+
         <div>
-            <a href="{% url 'generator:my_raffles' %}" class="align-end"><button type="submit" class="btn btn-outline-primary">Все мои конкурсы</button></a>
-            <a href="#" class='float-end'><button type="submit" class="btn btn-outline-primary">Повторить конкурс</button></a>
+            <a href="{% url 'generator:my_raffles' %}" class="align-end"><button type="submit"
+                    class="btn btn-outline-primary">Все мои конкурсы</button></a>
+            <a href="#" class='float-end'><button type="submit" class="btn btn-outline-primary">Повторить
+                    конкурс</button></a>
         </div>
     </div>
 </div>
 
 {% endfor %}
 <script>
-    jQuery(document).ready(function($){
+    jQuery(document).ready(function ($) {
         $('.block2').hide();
         setTimeout(() => {
             $('.block1').hide();
             $('.block2').fadeIn();
-        },{{ delay }})
+        }, {{ delay }})
         
     })
 </script>
 <style>
-.list {
-  margin: 5px;
-  opacity: 0;
-  animation: fade 1s linear forwards;
-}
-div:nth-of-type() {
-  animation-delay: 1s;
-}
-div:nth-of-type() {
-  animation-delay: 2s;
-}
-div:nth-of-type() {
-  animation-delay: 3s;
-}
-div:nth-of-type() {
-  animation-delay: 4s;
-}
-@keyframes fade {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
+    .list {
+        margin: 5px;
+        opacity: 0;
+        animation: fade 1s linear forwards;
+    }
 
+    div:nth-of-type() {
+        animation-delay: 1s;
+    }
+
+    div:nth-of-type() {
+        animation-delay: 2s;
+    }
+
+    div:nth-of-type() {
+        animation-delay: 3s;
+    }
+
+    div:nth-of-type() {
+        animation-delay: 4s;
+    }
+
+    @keyframes fade {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
 </style>
 
 
