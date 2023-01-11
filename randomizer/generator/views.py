@@ -18,12 +18,11 @@ def authorized_only(func):
 
 @authorized_only
 def index(request):
-    raf = (Raffle.objects.filter(creator=request.user))
-    len_raf = len(raf)
-    raffles = raf[:5]
+    raf = Raffle.objects.filter(creator=request.user).count()
+    raffles = Raffle.objects.filter(creator=request.user)[:5]
     context = {
         'raffles': raffles,
-        'len_raf': len_raf,
+        'len_raf': raf,
     }
 
     return render(request, 'generator/index.html', context)
@@ -31,7 +30,7 @@ def index(request):
 
 @authorized_only
 def raffle_page(request, slug):
-    raffles = (Raffle.objects.filter(creator=request.user, slug=slug))
+    raffles = Raffle.objects.filter(slug=slug)
 
     context = {
         'raffles': raffles
@@ -42,7 +41,7 @@ def raffle_page(request, slug):
 
 @authorized_only
 def my_raffles(request):
-    raffles = (Raffle.objects.filter(creator=request.user))
+    raffles = Raffle.objects.filter(creator=request.user)
 
     context = {
         'raffles': raffles
@@ -54,7 +53,7 @@ def my_raffles(request):
 @authorized_only
 def thankyou(request):
     delay = randint(1000, 1500)
-    raffles = (Raffle.objects.filter(creator=request.user))[:1]
+    raffles = Raffle.objects.filter(creator=request.user)[:1]
     context = {
         'raffles': raffles,
         'delay': delay,

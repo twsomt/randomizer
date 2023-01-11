@@ -38,13 +38,15 @@
                         {% define raffle.winner_photo|str_to_list as winner_photo %}
                         {% define raffle.winner_first_name|str_to_list as winner_first_name %}
                         {% define raffle.winner_last_name|str_to_list as winner_last_name %}
-
+                        <div class="shows">
                         {% for i in raffle.winner|str_to_list|length|make_range %}
-                        <div class="list">
-                            <img src="{{ winner_photo|index:i }}" alt="Победитель" class="rounded">
-                            <a href="{{ winner_url|index:i }}" target="_blank"> {{ winner_first_name|index:i }} {{ winner_last_name|index:i }}</a>
-                        </div>
+                        
+                            <div>
+                                <img src="{{ winner_photo|index:i }}" alt="Победитель" class="rounded">
+                                <a href="{{ winner_url|index:i }}" target="_blank"> {{ winner_first_name|index:i }} {{ winner_last_name|index:i }}</a>
+                            </div>
                         {% endfor %}
+                        </div>
                     </span>
                 </td>
             </tr>
@@ -102,22 +104,6 @@
         animation: fade 1s linear forwards;
     }
 
-    div:nth-of-type() {
-        animation-delay: 1s;
-    }
-
-    div:nth-of-type() {
-        animation-delay: 2s;
-    }
-
-    div:nth-of-type() {
-        animation-delay: 3s;
-    }
-
-    div:nth-of-type() {
-        animation-delay: 4s;
-    }
-
     @keyframes fade {
         0% {
             opacity: 0;
@@ -129,6 +115,30 @@
     }
 </style>
 
+<div class="shows">
+	<div>1sdfsd</div>
+	<div>2asdfsd</div>
+	<div>3sadf</div>
+	<div>4asdf</div>
+	<div>5sadf</div>
+	<div>6asdf</div>
+</div>
+
+<style type="text/css">
+.shows {
+	overflow: hidden;
+}
+.shows div {
+	display: none;
+	margin: 5px;
+}
+</style>
+
+<script>
+$('.shows div:eq(0)').fadeIn(2000, function(){
+	$(this).next().fadeIn(1000, arguments.callee);
+});
+</script>
 
 
 {% endblock %}
