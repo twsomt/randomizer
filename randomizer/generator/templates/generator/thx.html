@@ -37,7 +37,7 @@
                             {% if not forloop.last %} 
                                 <div class="list">
                                     <img src="{{ win|link }}" alt="Победитель" class="rounded">
-                                    <a href="https://vk.com/{{ win|id }}/" target="_blank"> {{ win|first_name }} {{ win|last_name }}</a>
+                                    <a href="https://vk.com/id{{ win|id }}/" target="_blank"> {{ win|first_name }} {{ win|last_name }}</a>
                                 </div>
                             {% endif %}
                             {% endfor %}
