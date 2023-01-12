@@ -24,13 +24,21 @@
 <div class="p-2 bg-light">
   <br>
   <div class="card col-md-12 p-4 text-break">
-  <legend>
-    <h4>Новый конкурс</h4>
-  </legend>
-  
-    <form method="post" action="{% url 'generator:new_raffle' %}">
+    <legend>
+      <h4>Новый конкурс</h4>
+      x {{ x|decode }} x
+    </legend>
+    <div class="instrcution border alert-danger rounded" style="margin: 10px; padding: 10px;">
+        Вы ошибочно заполнили форму конкурса. Давайте всё исправим!
+        <ul>
+          <li>В поле со ссылкой укажите ссылку на пост Вконтакте (скопируйте из адресной строки)</li>
+          <li>В поле количество победителей укажите положительное число</li>
+        </ul>
+      
+    </div>
+    <form method="post" class='needs-validation' action="{% url 'generator:new_raffle' %}" novalidate>
       {% csrf_token %}
-
+      
       {% for field in form %}
 
       <div class="mb-2">
@@ -39,22 +47,23 @@
         Учитывать только участников группы
         {% else %}
         <label class="form-label" for="{{ field.id_for_label }}">
+          
           {{ field.label }}
           {% if field.field.required %}
           <span class="required text-danger">*</span>
           {% endif %}
         </label>
-
+        
         {% if field.name == 'link' %}
-          {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
+        {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
         {% elif field.name == 'title'%}
-          {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
+        {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
         {% elif field.name == 'description'%}
-          {{ field|addplaceholder:'Розыгрыш 5кг оливье'}}
+        {{ field|addplaceholder:'Розыгрыш 5кг оливье'}}
         {% elif field.name == 'qty_winners'%}
-          {{ field|addplaceholder:'1'}}
+        {{ field|addplaceholder:'1'}}
         {% else %}
-          {{ field|addclass:'form-control' }}
+        {{ field|addclass:'form-control' }}
         {% endif %}
         {% if field.help_text %}
         <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
@@ -64,7 +73,15 @@
         {% endif %}
       </div>
       {% endfor %}
-      <a href="#"><button type="submit" class="btn btn-outline-primary">Определить победителя</button></a>
+      <a href="#"><button type="submit" class="btn btn-outline-primary block1" id="ActivateLoader">Определить
+          победителя</button></a>
+      <a href="">
+        <button" class="btn block2" id="ActivateLoader">
+          <div class="spinner-grow text-primary" role="status">
+          </div>
+          </button>
+      </a>
+
     </form>
   </div>
 
@@ -77,5 +94,38 @@
     <button class="btn btn-primary">Получить ключ</button>
   </div>
   {% endif %}
+  <style>
+    .btn:focus,
+    .btn:active {
+      outline: none !important;
+      box-shadow: none;
+    }
+  </style>
 
+  <script>
+    (function () {
+      'animate if form is valid'
+      $('.block2').hide();
+      $('.instrcution').hide();
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+              $('.instrcution').fadeIn();
+            } else {
+             $('.block2').hide();
+              setTimeout(() => {
+                $('.block1').hide();
+                $('.instrcution').hide();
+                $('.block2').fadeIn();
+              }, {{ 200 }})
+        }
+        }, false)
+    })
+    }) ()
+
+  </script>
   {% endblock %}

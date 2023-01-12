@@ -1,4 +1,5 @@
 from django import template
+from urllib.parse import unquote, quote
 register = template.Library()
 
 
@@ -6,6 +7,9 @@ register = template.Library()
 def addclass(field, css):
     return field.as_widget(attrs={'class': css})
 
+@register.filter 
+def addvalue(field, css):
+    return field.as_widget(attrs={'value': css})
 
 @register.filter 
 def addplaceholder(field, css):
@@ -30,3 +34,13 @@ def index(indexable, i):
 @register.filter
 def str_to_list_length(x):
     return len(x[:-1].split('#'))
+
+@register.filter
+def code(x):
+    x = str(x)
+    return quote(x)
+
+@register.filter
+def decode(x):
+    x = str(x)
+    return unquote(x)

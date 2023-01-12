@@ -80,7 +80,12 @@
         <div>
             <a href="{% url 'generator:my_raffles' %}" class="align-end"><button type="submit"
                     class="btn btn-outline-primary">Все мои конкурсы</button></a>
-            <a href="#" class='float-end'><button type="submit" class="btn btn-outline-primary">Повторить
+            {% define raffle.title|code as r_title %}
+            {% define raffle.description|code as r_description %}
+            {% define raffle.link|code as r_link %}
+            {% define raffle.qty_winners|code as r_qty_winners %}
+            {% define raffle.is_subscribers|code as r_is_subscribers %}
+            <a href="{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}" class='float-end'><button class="btn btn-outline-primary">Повторить
                     конкурс</button></a>
         </div>
     </div>
