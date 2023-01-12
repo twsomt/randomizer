@@ -57,10 +57,11 @@
             <td>{{ raffle.description|truncatechars:45 }}</td>
             <td>{{ raffle.link }}</td>
             <td>
-              {% for win in raffle.winner_url|str_to_list %}
+              {% for win in raffle.winner_url|str_to_list|slice:":1" %}
                 {{ win }}
               {% if not forloop.last %}<br>{% endif %}
               {% endfor %}
+              {% if raffle.winner_url|str_to_list_length != 1 %} [...] {% endif %}
             </td>
             <td>{{ raffle.time_create|date:"d E Y"}}</td>
           </tr>

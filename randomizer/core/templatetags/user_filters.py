@@ -26,3 +26,7 @@ def define(val=None):
 @register.filter
 def index(indexable, i):
     return indexable[i]
+
+@register.filter
+def str_to_list_length(x):
+    return len(x[:-1].split('#'))
