@@ -9,7 +9,7 @@
             <h4>Все мои конкурсы</h4>
         </legend>
 
-        {% for raffle in raffles%}
+        {% for raffle in page_obj%}
         <div class="card col-md-7 p-4 text-break">
             <table class="table">
                 <tr>
@@ -27,15 +27,15 @@
                 <tr>
                     <td>
                         {% if raffle.winner_url|str_to_list|length == 1 %}
-                          Победитель
+                        Победитель
                         {% else %}
-                          Победители
+                        Победители
                         {% endif %}
                     </td>
                     <td>
                         {% for win in raffle.winner_url|str_to_list %}
-                          <a href="{{ win }}" target="_blank">{{ win }}</a>
-                          {% if not forloop.last %}<br>{% endif %}
+                        <a href="{{ win }}" target="_blank">{{ win }}</a>
+                        {% if not forloop.last %}<br>{% endif %}
                         {% endfor %}
                     </td>
                 </tr>
@@ -64,9 +64,35 @@
                 </tr>
             </table>
         </div>
+
+        <br>
+        {% endfor %}
     
-    <br>
-    {% endfor %}
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% for p in paginator.page_range %}
+            {% if page_obj.number == p %}
+            <li class="page-item active"><a class="page-link" href="">{{ p }}</a></li>
+            {% elif p >= page_obj.number|add:-4 and p <= page_obj.number|add:4 %} <li class="page-item"><a
+                    class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                {% endif %}
+                {% endfor %}
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+        </ul>
+    </nav>
 </div>
 </div>
+
 {% endblock %}

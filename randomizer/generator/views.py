@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import datetime as dt
 from generator.functions import get_winner
 from random import randint
+from django.core.paginator import Paginator
+
 
 
 def authorized_only(func):
@@ -42,9 +44,14 @@ def raffle_page(request, slug):
 @authorized_only
 def my_raffles(request):
     raffles = Raffle.objects.filter(creator=request.user)
+    
+    paginator = Paginator(raffles, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        'raffles': raffles
+        'page_obj': page_obj,
+        'paginator': paginator
     }
 
     return render(request, 'generator/my_raffles.html', context)
