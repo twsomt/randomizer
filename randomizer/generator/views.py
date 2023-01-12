@@ -33,25 +33,32 @@ def index(request):
 @authorized_only
 def raffle_page(request, slug):
     raffles = Raffle.objects.filter(slug=slug)
-    # r_title = request.GET.get('r_title')
-    # r_description = request.GET.get('r_description')
-    # r_link = request.GET.get('r_link')
-    # r_qty_winners = request.GET.get('r_qty_winners')
-    # r_is_subscribers  = request.GET.get('r_is_subscribers')
-    # x = request.GET.get('r_title', '')
-    x = '1234568888888888888888888888'
-
     context = {
         'raffles': raffles,
-        # 'r_title': r_title,
-        # 'r_description': r_description,
-        # 'r_link': r_link,
-        # 'r_qty_winners': r_qty_winners,
-        # 'r_is_subscribers': r_is_subscribers,
-        'x': x,
     }
 
     return render(request, 'generator/raffle_page.html', context)
+
+@authorized_only
+def raffle_page(request, slug):
+    raffles = Raffle.objects.filter(slug=slug)
+    r_title = request.GET.get('r_title')
+    r_description = request.GET.get('r_description')
+    r_link = request.GET.get('r_link')
+    r_qty_winners = request.GET.get('r_qty_winners')
+    r_is_subscribers  = request.GET.get('r_is_subscribers')
+    x = request.GET.get('r_title', '')
+
+    context = {
+        'raffles': raffles,
+        'r_title': r_title,
+        'r_description': r_description,
+        'r_link': r_link,
+        'r_qty_winners': r_qty_winners,
+        'r_is_subscribers': r_is_subscribers,
+    }
+
+    return render(request, 'generator/repeat_rfl.html', context)
 
 
 @authorized_only
