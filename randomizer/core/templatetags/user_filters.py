@@ -9,7 +9,7 @@ def addclass(field, css):
 
 @register.filter 
 def addvalue(field, css):
-    return field.as_widget(attrs={'value': css})
+    return field.as_widget(attrs={'value': css, 'class': 'form-control'})
 
 @register.filter 
 def addplaceholder(field, css):

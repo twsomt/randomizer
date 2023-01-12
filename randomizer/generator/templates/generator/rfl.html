@@ -26,7 +26,7 @@
   <div class="card col-md-12 p-4 text-break">
     <legend>
       <h4>Новый конкурс</h4>
-      x {{ x|decode }} x
+      {{ r_description }}
     </legend>
     <div class="instrcution border alert-danger rounded" style="margin: 10px; padding: 10px;">
         Вы ошибочно заполнили форму конкурса. Давайте всё исправим!
@@ -53,15 +53,47 @@
           <span class="required text-danger">*</span>
           {% endif %}
         </label>
-        
+
         {% if field.name == 'link' %}
-        {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
-        {% elif field.name == 'title'%}
-        {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
+          {% if r_link %}
+            {{ field|addvalue:r_link }}
+          {% else %}
+            {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
+          {% endif %}
+                
+        {% elif field.name == 'title' %}
+        {% if r_title %}
+          {{ field|addvalue:r_title }}
+        {% else %}
+          {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
+        {% endif %}
+
+        
         {% elif field.name == 'description'%}
-        {{ field|addplaceholder:'Розыгрыш 5кг оливье'}}
+        {% if r_description %}
+          {{ field|addvalue:r_description }}
+        {% else %}
+          {{ field|addplaceholder:'Розыгрыш 5кг оливье'}}
+        {% endif %}
+                <!-- 
+        
+        
+        
+        
+         -->
         {% elif field.name == 'qty_winners'%}
-        {{ field|addplaceholder:'1'}}
+        {% if r_qty_winners %}
+          {{ field|addvalue:r_qty_winners}}
+        {% else %}
+          {{ field|addplaceholder:'1'}}
+        {% endif %}
+        
+        {% elif field.name == 'is_subscribers'%}
+        {% if r_is_subscribers %}
+          {{ field|addvalue:r_is_subscribers}}
+        {% endif %}
+        
+
         {% else %}
         {{ field|addclass:'form-control' }}
         {% endif %}

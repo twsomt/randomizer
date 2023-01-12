@@ -39,26 +39,24 @@ def raffle_page(request, slug):
 
     return render(request, 'generator/raffle_page.html', context)
 
-@authorized_only
-def raffle_page(request, slug):
-    raffles = Raffle.objects.filter(slug=slug)
-    r_title = request.GET.get('r_title')
-    r_description = request.GET.get('r_description')
-    r_link = request.GET.get('r_link')
-    r_qty_winners = request.GET.get('r_qty_winners')
-    r_is_subscribers  = request.GET.get('r_is_subscribers')
-    x = request.GET.get('r_title', '')
+# @authorized_only
+# def repeat_rfl(request):
+#     r_title = request.GET.get('r_title')
+#     r_description = request.GET.get('r_description')
+#     r_link = request.GET.get('r_link')
+#     r_qty_winners = request.GET.get('r_qty_winners')
+#     r_is_subscribers  = request.GET.get('r_is_subscribers')
+#     x = request.GET.get('r_title', '')
 
-    context = {
-        'raffles': raffles,
-        'r_title': r_title,
-        'r_description': r_description,
-        'r_link': r_link,
-        'r_qty_winners': r_qty_winners,
-        'r_is_subscribers': r_is_subscribers,
-    }
+#     context = {
+#         'r_title': r_title,
+#         'r_description': r_description,
+#         'r_link': r_link,
+#         'r_qty_winners': r_qty_winners,
+#         'r_is_subscribers': r_is_subscribers,
+#     }
 
-    return render(request, 'generator/repeat_rfl.html', context)
+#     return render(request, 'generator/repeat_rfl.html', context)
 
 
 @authorized_only
@@ -134,3 +132,15 @@ class VkForm(LoginRequiredMixin, CreateView):
                 form.instance.winner_last_name += f'{winners[i][4]}#'
 
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(VkForm, self).get_context_data(**kwargs)
+        context['r_title'] = self.request.GET.get('r_title', '')
+        context['r_description'] = self.request.GET.get('r_description', '')
+        context['r_link'] = self.request.GET.get('r_link')
+        context['r_qty_winners'] = self.request.GET.get('r_qty_winners', '')
+        context['r_is_subscribers'] = self.request.GET.get('r_is_subscribers', '')
+
+
+        return context
+    
