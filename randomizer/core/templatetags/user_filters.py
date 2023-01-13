@@ -44,3 +44,7 @@ def code(x):
 def decode(x):
     x = str(x)
     return unquote(x)
+
+@register.filter
+def to_str(x):
+    return str(x)
