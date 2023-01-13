@@ -8,8 +8,6 @@ from generator.functions import get_winner
 from random import randint
 from django.core.paginator import Paginator
 
-
-
 def authorized_only(func):
     def check_user(request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -38,25 +36,6 @@ def raffle_page(request, slug):
     }
 
     return render(request, 'generator/raffle_page.html', context)
-
-# @authorized_only
-# def repeat_rfl(request):
-#     r_title = request.GET.get('r_title')
-#     r_description = request.GET.get('r_description')
-#     r_link = request.GET.get('r_link')
-#     r_qty_winners = request.GET.get('r_qty_winners')
-#     r_is_subscribers  = request.GET.get('r_is_subscribers')
-#     x = request.GET.get('r_title', '')
-
-#     context = {
-#         'r_title': r_title,
-#         'r_description': r_description,
-#         'r_link': r_link,
-#         'r_qty_winners': r_qty_winners,
-#         'r_is_subscribers': r_is_subscribers,
-#     }
-
-#     return render(request, 'generator/repeat_rfl.html', context)
 
 
 @authorized_only
@@ -113,7 +92,7 @@ class VkForm(LoginRequiredMixin, CreateView):
 
         # slug
         slug = form.instance.slug
-        now_slug = now.strftime("%d%m%Y%H%M%S")
+        now_slug = now.strftime("%d%m%Y%H%M%S%s")
         if not slug:
             form.instance.slug = f'{user}_{now_slug}'
 

@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load user_filters %}
+{% load static %}
 
-<div class="p-2 bg-light border">
+<div class="p-2 bg-light">
     <br>
     <div class="card col-md-12 p-4 text-break">
         <legend>
@@ -29,7 +30,7 @@
                     </span>
                 </td>
                 <td class="block1">
-                    <div class="spinner-grow text-primary" role="status">
+                    <div class="spinner-border text-primary" role="status">
                     </div>
                 </td>
                 <td class="block2">
@@ -42,7 +43,7 @@
                         {% for i in raffle.winner|str_to_list|length|make_range %}
                         
                             <div>
-                                <img src="{{ winner_photo|index:i }}" alt="Победитель" class="rounded">
+                                <img src="{{ winner_photo|index:i }}" alt="Победитель" class="rounded" style="margin-left: -5px;">
                                 <a href="{{ winner_url|index:i }}" target="_blank"> {{ winner_first_name|index:i }} {{ winner_last_name|index:i }}</a>
                             </div>
                         {% endfor %}
@@ -54,12 +55,7 @@
                 <td><span class="align-middle">Дата и время создания</span></td>
                 <td><span class="align-middle">{{ raffle.time_create|date:"d E Y H:i:s" }}</span></td>
             </tr>
-            {% if raffle.time_create|date:"d E Y H i s" == raffle.time_update|date:"d E Y H i s" %}
-            <tr>
-                <td><span class="align-middle">Дата и время изменения</span></td>
-                <td><span class="align-middle">Изменения отсутствуют</span></td>
-            </tr>
-            {% else %}
+            {% if not raffle.time_create|date:"d E Y H i s" == raffle.time_update|date:"d E Y H i s" %}
             <tr>
                 <td><span class="align-middle">Дата и время изменения</span></td>
                 <td><span class="align-middle">{{ raffle.time_update|date:"d E Y H:i:s" }}</span></td>
@@ -85,8 +81,8 @@
             {% define raffle.link|code as r_link %}
             {% define raffle.qty_winners|code as r_qty_winners %}
             {% define raffle.is_subscribers|code as r_is_subscribers %}
-            <a href="{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}" class='float-end'><button class="btn btn-outline-primary">Повторить
-                    конкурс</button></a>
+            <a href="{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}" class='float-end'><img src="{% static 'img/repeat_grey.jpg' %}" class="rotate_icon disabled" width='40px' alt="Повторить конкурс"></a>
+            
         </div>
     </div>
 </div>
@@ -128,13 +124,19 @@
 	display: none;
 	margin: 5px;
 }
+
+.rotate_icon:hover
+{
+    cursor: default;
+    transform: rotate(-180deg);
+    transition: all 0.2s ease-in-out 0s;
+}
+
 </style>
-
 <script>
-$('.shows div:eq(0)').fadeIn(2000, function(){
-	$(this).next().fadeIn(1000, arguments.callee);
-});
+    $('.shows div:eq(0)').fadeIn(2000, function(){
+        $(this).next().fadeIn(1000, arguments.callee);
+    });
 </script>
-
 
 {% endblock %}

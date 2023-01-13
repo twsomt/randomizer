@@ -10,14 +10,10 @@
         </legend>
 
         {% for raffle in page_obj%}
-        <div class="card col-md-7 p-4 text-break">
+        <div onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}';" class="card col-md-7 p-4 text-break box">
             <table class="table">
                 <tr>
-                    <td>Заголовок</td>
-                    <td><a href="{% url 'generator:raffle_page' raffle.slug %}">{{raffle.title }}</a></td>
-                </tr>
-                <tr>
-                    <td>Описание</td>
+                    <td>Приз</td>
                     <td>{{raffle.description}}</td>
                 </tr>
                 <tr>
@@ -69,7 +65,6 @@
         {% endfor %}
     
 
-
     <nav aria-label="Page navigation example">
         <ul class="pagination">
 
@@ -94,5 +89,13 @@
     </nav>
 </div>
 </div>
+<style>
+.box:hover {
+   /* border-color: rgb(13, 110, 253); */
+   background-color: rgb(240, 248, 252);
+   transition: 0.5s;
 
+}
+
+</style>
 {% endblock %}

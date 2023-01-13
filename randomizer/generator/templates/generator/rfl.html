@@ -26,7 +26,6 @@
   <div class="card col-md-12 p-4 text-break">
     <legend>
       <h4>Новый конкурс</h4>
-      {{ r_description }}
     </legend>
     <div class="instrcution border alert-danger rounded" style="margin: 10px; padding: 10px;">
         Вы ошибочно заполнили форму конкурса. Давайте всё исправим!
@@ -68,20 +67,14 @@
         {% else %}
           {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
         {% endif %}
-
         
         {% elif field.name == 'description'%}
         {% if r_description %}
           {{ field|addvalue:r_description }}
         {% else %}
-          {{ field|addplaceholder:'Розыгрыш 5кг оливье'}}
+          {{ field|addplaceholder:'5кг оливье'}}
         {% endif %}
-                <!-- 
-        
-        
-        
-        
-         -->
+
         {% elif field.name == 'qty_winners'%}
         {% if r_qty_winners %}
           {{ field|addvalue:r_qty_winners}}
@@ -93,7 +86,6 @@
         {% if r_is_subscribers %}
           {{ field|addvalue:r_is_subscribers}}
         {% endif %}
-        
 
         {% else %}
         {{ field|addclass:'form-control' }}
@@ -110,7 +102,7 @@
           победителя</button></a>
       <a href="">
         <button" class="btn block2" id="ActivateLoader">
-          <div class="spinner-grow text-primary" role="status">
+          <div class="spinner-border text-primary" role="status">
           </div>
           </button>
       </a>
@@ -127,13 +119,7 @@
     <button class="btn btn-primary">Получить ключ</button>
   </div>
   {% endif %}
-  <style>
-    .btn:focus,
-    .btn:active {
-      outline: none !important;
-      box-shadow: none;
-    }
-  </style>
+
 
   <script>
     (function () {

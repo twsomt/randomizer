@@ -12,11 +12,7 @@
     
         <table class="table">
             <tr>
-                <td>Заголовок</td>
-                <td>{{raffle.title}}</td>
-            </tr>
-            <tr>
-                <td>Описание</td>
+                <td>Приз</td>
                 <td>{{raffle.description}}</td>
             </tr>
             <tr>
@@ -63,8 +59,16 @@
             </tr>
         </table>
         <div>
-            <a href="{% url 'generator:my_raffles' %}" class="align-end"><button type="submit" class="btn btn-outline-primary">Все мои конкурсы</button></a>
-            <a href="#" class='float-end'><button type="submit" class="btn btn-outline-primary">Повторить конкурс</button></a>
+            <div class="btn-group" role="group" aria-label="Basic outlined example"> 
+                <button onclick="window.location.href='{% url 'generator:my_raffles' %}';" class="btn btn-outline-primary">Все мои конкурсы</button>
+                <button type="button" class="btn btn-outline-primary">Изменить конкурс</button>
+                {% define raffle.title|code as r_title %}
+                {% define raffle.description|code as r_description %}
+                {% define raffle.link|code as r_link %}
+                {% define raffle.qty_winners|code as r_qty_winners %}
+                {% define raffle.is_subscribers|code as r_is_subscribers %}
+                <button onclick="window.location.href = '{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}';" type="button" class="btn btn-outline-primary">Повторить конкурс</button>
+            </div>
         </div>
     </div>
 </div>
