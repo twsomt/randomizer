@@ -15,6 +15,9 @@ def authorized_only(func):
         return redirect('/auth/login/')
     return check_user
 
+def lk(request):
+    return render(request, 'generator/lk.html')
+
 
 @authorized_only
 def index(request):
