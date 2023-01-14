@@ -59,7 +59,7 @@ def my_raffles(request):
 
 @authorized_only
 def thankyou(request):
-    delay = randint(1000, 1500)
+    delay = randint(7000, 10000)
     raffles = Raffle.objects.filter(creator=request.user)[:1]
     context = {
         'raffles': raffles,
