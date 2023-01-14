@@ -12,11 +12,7 @@
         {% for raffle in raffles%}
         <table class="table align-middle">
             <tr>
-                <td><span class="align-middle">Заголовок</span></td>
-                <td><span class="align-middle">{{ raffle.title }}</span></td>
-            </tr>
-            <tr>
-                <td><span class="align-middle">Описание</span></td>
+                <td><span class="align-middle">Приз</span></td>
                 <td><span class="align-middle">{{ raffle.description }}</span></td>
             </tr>
             <tr>
@@ -94,6 +90,9 @@
         setTimeout(() => {
             $('.block1').hide();
             $('.block2').fadeIn();
+            $('.shows div:eq(0)').fadeIn(1000, function(){
+            $(this).next().fadeIn(1000, arguments.callee);
+            });
         }, {{ delay }})
         
     })
@@ -133,10 +132,10 @@
 }
 
 </style>
-<script>
+<!-- <script>
     $('.shows div:eq(0)').fadeIn(2000, function(){
         $(this).next().fadeIn(1000, arguments.callee);
     });
-</script>
+</script> -->
 
 {% endblock %}
