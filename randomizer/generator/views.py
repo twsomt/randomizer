@@ -59,7 +59,7 @@ def my_raffles(request):
 
 @authorized_only
 def thankyou(request):
-    delay = randint(7000, 10000)
+    delay = randint(9000, 11000)
     raffles = Raffle.objects.filter(creator=request.user)[:1]
     context = {
         'raffles': raffles,
@@ -73,6 +73,10 @@ class VkForm(LoginRequiredMixin, CreateView):
     model = Raffle
     template_name = 'generator/rfl.html'
     success_url = '/thankyou/'
+
+    def form_invalid(self, form):    
+        print(123)
+        return None
 
     def form_valid(self, form):
 
@@ -102,8 +106,11 @@ class VkForm(LoginRequiredMixin, CreateView):
         # winner
         winner = form.instance.winner
         if not winner:
-            winners = wins = get_winner(
-                form.instance.link, form.instance.qty_winners, form.instance.is_subscribers)
+            winners = get_winner(
+                                form.instance.link,
+                                form.instance.qty_winners,
+                                form.instance.is_subscribers
+            )
             
             length_winners = len(winners)
             for i in range(length_winners):
