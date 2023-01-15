@@ -20,8 +20,12 @@
           <a class="nav-link" href="{% url 'generator:lk' %}">Личный кабинет</a>
         </li>
         <!-- <li class="nav-item">
-          <a class="nav-link" href="{% url 'generator:thankyou' %}">ПАСИБО</a>
+          <a class="nav-link" href="{% url 'users:auth_vk' %}">AUTH Успех</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:auth_vk' %}?error=access_denied&error_description=The+user+or+authorization+server+denied+the+request">AUTH Провал</a>
         </li> -->
+
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
             {% if user.first_name and user.last_name %}

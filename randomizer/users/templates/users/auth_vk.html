@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Добавление API-ключа{% endblock %}
+{% block content %}
+{% if not error %}
+  <div class="col-md-8 p-3 ">
+    <div class="card">
+      <div class="card-header alert alert-success">
+        Успешно
+      </div>
+      <div class="card-body">
+        <p>
+          Вы успешно добавили ключ ВК в систему!<br>
+          Теперь можно <a href="{% url 'generator:new_raffle' %}">проводить конкурсы</a> ;)<br>
+        </p>
+      </div>
+    </div>
+  </div>
+{% else %}
+<div class="col-md-8 p-3 ">
+    <div class="card">
+      <div class="card-header alert alert-danger">
+        Неуспешно
+      </div>
+      <div class="card-body">
+        <p>
+          Сервер Вконтакте передал информацию об ошибке:<br>
+          <p class="alert-secondary rounded" style="padding: 5px;"><var>{{ error_description }}</var></p>
+          Возможно, вы не дали приложению доступ к просмотру групп.<br>
+          Это необходимо для его корректной работы.<br>
+          Пожалуйста, попробуйте <a href="https://oauth.vk.com/authorize?client_id=51526721&display=page&redirect_uri=https://goraffle.ru/auth/auth_vk/&scope=groups+offline&response_type=token&v=5.131&state=123456" target="_blank">получить ключ снова</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %} 

@@ -84,6 +84,9 @@ class VkForm(LoginRequiredMixin, CreateView):
         user = form.instance.creator
         # pk = form.instance.pk
 
+        # api_key_vk
+        api_vk_key = self.request.user.client.api_vk_key
+
         # title
         title = form.instance.title
         now = dt.now()
@@ -108,6 +111,7 @@ class VkForm(LoginRequiredMixin, CreateView):
         if not winner:
             winners = get_winner(
                                 form.instance.link,
+                                api_vk_key,
                                 form.instance.qty_winners,
                                 form.instance.is_subscribers
             )

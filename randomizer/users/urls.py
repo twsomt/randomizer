@@ -23,4 +23,5 @@ urlpatterns = [
     path('reset/<uidb64>/<token>', PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('reset/done/', PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
     path('access_denied/', access_denied, name='access_denied'),
+    path('auth_vk/', auth_vk, name='auth_vk'),
 ]

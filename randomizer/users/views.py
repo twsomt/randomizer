@@ -2,6 +2,8 @@ from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import CreationForm
 from django.shortcuts import render, redirect
+from generator.models import Client
+from datetime import datetime as dt
 
 def secret_enter(func):
     def check_user(request, *args, **kwargs):
@@ -20,3 +22,24 @@ class SignUp(CreateView):
 
 def access_denied(request):
     return render(request, 'users/access_denied.html')
+
+
+def auth_vk(request):
+    error = request.GET.get('error', '')
+    error_description = request.GET.get('error_description', '')
+    context = {
+        'error': error,
+        'error_description': error_description,
+    }
+    
+    access_token = request.GET.get('access_token', '123')
+    print(1)
+    print(request.query_params)
+    print(1)
+    try:
+        Client.objects.create(user=request.user, api_vk_key=access_token)
+    except:
+        Client.objects.update(user=request.user, api_vk_key=access_token)
+            
+
+    return render(request, 'users/auth_vk.html', context)

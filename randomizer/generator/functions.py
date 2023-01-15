@@ -10,7 +10,7 @@ import random
 # критический тест на 0 лайков, 0 комментов, 0 репостов, 0 подписчиков
 
 
-def get_winner(url, qty_winners=3, is_subscribers=True):
+def get_winner(url, token, qty_winners=3, is_subscribers=True):
     '''
     Функция определяет победителя (побетелей) из поста Вконтакте
     и возвращает список:
@@ -20,8 +20,7 @@ def get_winner(url, qty_winners=3, is_subscribers=True):
         ['айди3', 'ссылкаВК3', 'фото3', 'имя3', 'фамилия3'], # победитель3
         ]
     '''
-    token = 'vk1.a.dzBtvqC_ZKVp2adsEs5wWQ0GOKeZW3jRWgyQVri8x5XwrJ3WMqDnQswXXlt2yJZsultnd6FTqlBtllZYQAU-AEXfUR2XYMq-ujDo8ul61fHeKM285GPtopLt1DlMaZDnel-JBA8gqRwqjE3wji5RbO11GFnnYoQXufdGjU1a-S_ktRcWp_0NhJeH33DFwLQHiFiLyJ2bxtP3q2hpTVjGIQ'
-
+    
     time.sleep(0.3)
     version = 5.131  # надо ли получать версию?
 

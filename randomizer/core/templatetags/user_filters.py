@@ -48,3 +48,7 @@ def decode(x):
 @register.filter
 def to_str(x):
     return str(x)
+
+@register.filter
+def to_int(x):
+    return int(x)

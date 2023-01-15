@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Результат конкурса{% endblock %}
 {% block content %}
 {% load user_filters %}
 {% load static %}
@@ -7,7 +8,12 @@
     <br>
     <div class="card col-md-12 p-4 text-break">
         <legend>
-            <h4>Конкурс завершен успешно!</h4>
+            {% if raffles.0.qty_winners == 1 %}
+                <div class="process_title">Определяем победитeля...</h4></div>
+            {% else %}
+                <div class="process_title">Определяем победитeлей...</h4></div>
+            {% endif %}
+            <div class="complete_title">Конкурс завершен успешно!</h4></div>
         </legend>
         {% for raffle in raffles%}
         <table class="table align-middle">
@@ -77,7 +83,7 @@
             {% define raffle.link|code as r_link %}
             {% define raffle.qty_winners|code as r_qty_winners %}
             {% define raffle.is_subscribers|code as r_is_subscribers %}
-            <a href="{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}" class='float-end'><img src="{% static 'img/repeat_grey.jpg' %}" class="rotate_icon disabled" width='40px' alt="Повторить конкурс"></a>
+            <a href="{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}" class='float-end repeat_button'><img src="{% static 'img/repeat_grey.jpg' %}" class="rotate_icon disabled" width='40px' alt="Повторить конкурс"></a>
             
         </div>
     </div>
@@ -85,8 +91,10 @@
 
 {% endfor %}
 <script>
-    jQuery(document).ready(function ($) {
+    jQuery(document).ready(function ($) {   
+        $('.repeat_button').hide();
         $('.block2').hide();
+        $('.complete_title').hide();
         setTimeout(() => {
             $('.block1').hide();
             $('.block2').fadeIn();
@@ -94,9 +102,15 @@
             $(this).next().fadeIn(1000, arguments.callee);
             });
         }, {{ delay }})
+        setTimeout(() => {
+            $('.process_title').hide();
+            $('.complete_title').fadeIn();
+            $('.repeat_button').fadeIn();
+        }, {{ delay }} + ({{ raffles.0.qty_winners }} * 1000) + 150)
         
     })
 </script>
+
 <style>
     .list {
         margin: 5px;
