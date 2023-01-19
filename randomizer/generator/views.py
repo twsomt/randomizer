@@ -115,14 +115,16 @@ class VkForm(LoginRequiredMixin, CreateView):
                                 form.instance.qty_winners,
                                 form.instance.is_subscribers
             )
-            
-            length_winners = len(winners)
-            for i in range(length_winners):
-                form.instance.winner += f'{winners[i][0]}#'
-                form.instance.winner_url += f'{winners[i][1]}#'
-                form.instance.winner_photo += f'{winners[i][2]}#'
-                form.instance.winner_first_name += f'{winners[i][3]}#'
-                form.instance.winner_last_name += f'{winners[i][4]}#'
+            try:
+                length_winners = len(winners)
+                for i in range(length_winners):
+                    form.instance.winner += f'{winners[i][0]}#'
+                    form.instance.winner_url += f'{winners[i][1]}#'
+                    form.instance.winner_photo += f'{winners[i][2]}#'
+                    form.instance.winner_first_name += f'{winners[i][3]}#'
+                    form.instance.winner_last_name += f'{winners[i][4]}#'
+            except:
+                form.instance.winner_first_name = 'netu'
 
         return super().form_valid(form)
 

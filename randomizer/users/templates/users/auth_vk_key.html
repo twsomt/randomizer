@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Добавление API-ключа{% endblock %}
+{% block content %}
+
+<p style="padding: 5px; margin: 5px;">
+    Обрабатываем ответ Вконтакте ...
+</p>
+<p>
+<script>
+var msg = document.location.href
+msg = '?' + msg.substring(45)
+document.writeln(msg)
+window.location.replace("https://goraffle.ru/auth/auth_vk_complete/" + msg);
+</script>
+</p>
+{% endblock %} 
+
+
+

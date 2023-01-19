@@ -24,7 +24,7 @@ def access_denied(request):
     return render(request, 'users/access_denied.html')
 
 
-def auth_vk(request):
+def auth_vk_complete(request):
     error = request.GET.get('error', '')
     error_description = request.GET.get('error_description', '')
     context = {
@@ -33,13 +33,16 @@ def auth_vk(request):
     }
     
     access_token = request.GET.get('access_token', '123')
-    print(1)
-    print(request.query_params)
-    print(1)
+
     try:
         Client.objects.create(user=request.user, api_vk_key=access_token)
     except:
         Client.objects.update(user=request.user, api_vk_key=access_token)
             
 
-    return render(request, 'users/auth_vk.html', context)
+    return render(request, 'users/auth_vk_complete.html', context)
+
+
+
+def auth_vk_key(request):
+    return render(request, 'users/auth_vk_key.html')
