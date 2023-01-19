@@ -32,7 +32,7 @@ def auth_vk_complete(request):
         'error_description': error_description,
     }
     
-    access_token = request.GET.get('access_token', '123')
+    access_token = request.GET.get('token', '123')
 
     try:
         Client.objects.create(user=request.user, api_vk_key=access_token)
