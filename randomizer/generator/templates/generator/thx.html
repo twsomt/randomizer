@@ -83,7 +83,8 @@
             {% define raffle.link|code as r_link %}
             {% define raffle.qty_winners|code as r_qty_winners %}
             {% define raffle.is_subscribers|code as r_is_subscribers %}
-            <a href="{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}" class='float-end repeat_button'><img src="{% static 'img/repeat_grey.jpg' %}" class="rotate_icon disabled" width='40px' alt="Повторить конкурс"></a>
+            <a href="{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}" class='float-end repeat_button'><button type="submit"
+                class="btn btn-outline-primary">Повторить конкурс</button></a>
             
         </div>
     </div>
@@ -106,7 +107,7 @@
             $('.process_title').hide();
             $('.complete_title').fadeIn();
             $('.repeat_button').fadeIn();
-        }, {{ delay }} + ({{ raffles.0.qty_winners }} * 1000) + 150)
+        }, {{ delay }} + ({{ raffles.0.qty_winners }} * 1000) + 50)
         
     })
 </script>
@@ -138,12 +139,7 @@
 	margin: 5px;
 }
 
-.rotate_icon:hover
-{
-    cursor: default;
-    transform: rotate(-180deg);
-    transition: all 0.2s ease-in-out 0s;
-}
+
 
 </style>
 <!-- <script>
