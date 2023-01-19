@@ -13,6 +13,11 @@
             <a class="nav-link active" aria-current="page" href="{% url 'generator:index' %}">Главная</a>
           </li> -->
         {% if request.user.is_authenticated %}
+        {% if user.get_username == 'twsomt' %}
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/">Админка</a>
+        </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'generator:new_raffle' %}">Новый конкурс</a>
         </li>
