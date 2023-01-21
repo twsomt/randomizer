@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'generator',
     'users.apps.UsersConfig',
     'core',
+    'captcha',
 ]
 
 MIDDLEWARE = [

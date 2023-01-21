@@ -29,11 +29,16 @@
                 <div class="form-group row my-2">
                   <label for="{{ field.id_for_label }}">
                     {{ field.label }}
+                    {% if field.name == 'captcha' %}
+                      {{ field|addwidth }}
+                    {% endif %}
                       {% if field.field.required %}
                         <span class="required text-danger">*</span>
                       {% endif %}
                   </label>
-                  {{ field|addclass:'form-control' }} 
+                  {% if not field.name == 'captcha' %}
+                    {{ field|addclass:'form-control' }} 
+                  {% endif %}
                     {% if field.help_text %}
                       <small 
                          id="{{ field.id_for_label }}-help"

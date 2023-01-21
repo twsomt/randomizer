@@ -12,6 +12,10 @@ def addvalue(field, css):
     return field.as_widget(attrs={'value': css, 'class': 'form-control'})
 
 @register.filter 
+def addwidth(field):
+    return field.as_widget(attrs={'style': 'width: 170px;', 'class': 'rounded'})
+
+@register.filter 
 def addplaceholder(field, css):
     return field.as_widget(attrs={'placeholder': css, 'class': 'form-control'})
 
