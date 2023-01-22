@@ -9,6 +9,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% block navbar %}
         <!-- <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'generator:index' %}">Главная</a>
           </li> -->
@@ -36,13 +37,11 @@
         </li>
         {% endif %}
         {% if not request.user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+        <li class="text-secondary" style="">
+          Ваш помощник в проведении конкурсов
         </li>
         {% endif %}
+        {% endblock %}
       </ul>
     </div>
   </div>
