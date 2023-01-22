@@ -33,6 +33,9 @@
             {% if field.field.required %}
             <span class="required text-danger">*</span>
             {% endif %}
+            {% if field.name == 'email'%}
+            <span class="required text-danger">*</span>
+            {% endif %}
           </label>
           <div>
             {{ field|addclass:'form-control' }}
