@@ -80,6 +80,7 @@ class VkForm(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
 
+
         form.instance.creator = self.request.user
         user = form.instance.creator
         # pk = form.instance.pk
@@ -109,12 +110,34 @@ class VkForm(LoginRequiredMixin, CreateView):
         # winner
         winner = form.instance.winner
         if not winner:
+            link = form.instance.link
+            qty_winners = form.instance.qty_winners
+            description = form.instance.description
             winners = get_winner(
-                                form.instance.link,
+                                link,
                                 api_vk_key,
-                                form.instance.qty_winners,
+                                qty_winners,
                                 form.instance.is_subscribers
             )
+            if isinstance(winners, int):
+                
+                is_subscribers = form.instance.is_subscribers
+                
+                # если вернулся код о некорректности ссылки
+                # обнуляем строку, чтоб вернуть начальную форму
+                # но без строки
+                if winners == -2:
+                    link = ''
+
+                context = {
+                    'error_code': winners,
+                    'r_description': description,
+                    'r_link': link,
+                    'r_qty_winners': qty_winners,
+                    'r_is_subscribers': is_subscribers,
+                
+                }
+                return render(self.request, 'generator/raffle_error.html', context)
             try:
                 length_winners = len(winners)
                 for i in range(length_winners):
@@ -130,6 +153,7 @@ class VkForm(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(VkForm, self).get_context_data(**kwargs)
+        context['r_error_code'] = self.request.GET.get('r_error_code', '')
         context['r_title'] = self.request.GET.get('r_title', '')
         context['r_description'] = self.request.GET.get('r_description', '')
         context['r_link'] = self.request.GET.get('r_link')

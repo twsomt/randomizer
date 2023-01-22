@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Новый конкурс{% endblock %}
+{% block content %}
+{% load user_filters %}
+Обрабатываем данные
+
+<script>
+    window.location.replace("{% url 'generator:new_raffle' %}?r_title={{ r_title }}&r_description={{ r_description }}&r_link={{ r_link }}&r_qty_winners={{ r_qty_winners }}&r_is_subscribers={{ r_is_subscribers }}&r_error_code={{ error_code }}");
+</script>
+
+{% endblock %}

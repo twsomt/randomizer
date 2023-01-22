@@ -20,25 +20,36 @@
 {% endfor %}
 {% endif %}
 
-
 <div class="p-2 bg-light">
   <br>
   <div class="card col-md-12 p-4 text-break">
     <legend>
       <h4>Новый конкурс</h4>
     </legend>
+    {% if r_error_code %}
+    <div class="border alert-danger rounded" style="margin: 10px; padding: 10px;">
+      Указанная Вами ссылка не валидна. Это может быть по следующим причинам:
+      <ul>
+        <li>Пост не относится к группе или паблику Вконтакте</li>
+        <li>Пост не существует</li>
+        <li>На посте отсутствует активность</li>
+        <li>У вас нет доступа к этому посту</li>
+      </ul>
+      Мы обнулили ссылку на пост, и сохранили остальные данные. Попробуем снова?
+    </div>
+    {% endif %}
     <div class="instrcution border alert-danger rounded" style="margin: 10px; padding: 10px;">
-        Вы ошибочно заполнили форму конкурса. Давайте всё исправим!
-        <ul>
-          <li>Вcе поля со звёздочкой должны быть заполнены</li>
-          <li>В поле со ссылкой укажите ссылку на пост Вконтакте (скопируйте из адресной строки)</li>
-          <li>В поле количество победителей укажите положительное число</li>
-        </ul>
-      
+      Вы ошибочно заполнили форму конкурса. Давайте всё исправим!
+      <ul>
+        <li>Вcе поля со звёздочкой должны быть заполнены</li>
+        <li>В поле со ссылкой укажите ссылку на пост Вконтакте (скопируйте из адресной строки)</li>
+        <li>В поле количество победителей укажите положительное число</li>
+      </ul>
+
     </div>
     <form method="post" class='needs-validation' action="{% url 'generator:new_raffle' %}" novalidate>
       {% csrf_token %}
-      
+
       {% for field in form %}
 
       <div class="mb-2">
@@ -47,7 +58,7 @@
         Учитывать только участников группы
         {% else %}
         <label class="form-label" for="{{ field.id_for_label }}">
-          
+
           {{ field.label }}
           {% if field.field.required %}
           <span class="required text-danger">*</span>
@@ -55,36 +66,36 @@
         </label>
 
         {% if field.name == 'link' %}
-          {% if r_link %}
-            {{ field|addvalue:r_link }}
-          {% else %}
-            {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
-          {% endif %}
-                
+        {% if r_link %}
+        {{ field|addvalue:r_link }}
+        {% else %}
+        {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
+        {% endif %}
+
         {% elif field.name == 'title' %}
         {% if r_title %}
-          {{ field|addvalue:r_title }}
+        {{ field|addvalue:r_title }}
         {% else %}
-          {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
+        {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
         {% endif %}
-        
+
         {% elif field.name == 'description'%}
         {% if r_description %}
-          {{ field|addvalue:r_description }}
+        {{ field|addvalue:r_description }}
         {% else %}
-          {{ field|addplaceholder:'5кг оливье'}}
+        {{ field|addplaceholder:'5кг оливье'}}
         {% endif %}
 
         {% elif field.name == 'qty_winners'%}
         {% if r_qty_winners %}
-          {{ field|addvalue:r_qty_winners}}
+        {{ field|addvalue:r_qty_winners}}
         {% else %}
-          {{ field|addplaceholder:'1'}}
+        {{ field|addplaceholder:'1'}}
         {% endif %}
-        
+
         {% elif field.name == 'is_subscribers'%}
         {% if r_is_subscribers %}
-          {{ field|addvalue:r_is_subscribers}}
+        {{ field|addvalue:r_is_subscribers}}
         {% endif %}
 
         {% else %}
@@ -116,7 +127,8 @@
     Отсутствует корректный API - ключ
     <br>
     <br>
-    <a href="https://oauth.vk.com/authorize?client_id=51527760&display=page&redirect_uri=https://goraffle.ru/auth/auth_vk_key/&scope=groups+offline&response_type=token&v=5.131&state=123456" target="_blank">Получить ключ</a>
+    <a href="https://oauth.vk.com/authorize?client_id=51527760&display=page&redirect_uri=https://goraffle.ru/auth/auth_vk_key/&scope=groups+offline&response_type=token&v=5.131&state=123456"
+      target="_blank">Получить ключ</a>
   </div>
   {% endif %}
 
@@ -135,7 +147,7 @@
               event.stopPropagation()
               $('.instrcution').fadeIn();
             } else {
-             $('.block2').hide();
+              $('.block2').hide();
               setTimeout(() => {
                 $('.block1').hide();
                 $('.instrcution').hide();
