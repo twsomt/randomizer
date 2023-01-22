@@ -18,7 +18,6 @@ class SignUp(CreateView):
     form_class = CreationForm
     success_url = reverse_lazy('generator:index')
     template_name = 'users/signup.html'
-    
 
 def access_denied(request):
     return render(request, 'users/access_denied.html')
