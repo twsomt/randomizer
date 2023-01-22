@@ -10,7 +10,8 @@
         </legend>
 
         {% for raffle in page_obj%}
-        <div onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}';" class="card col-md-7 p-4 text-break box">
+        <div onclick="window.location.href='{% url 'generator:raffle_page' raffle.slug %}';"
+            class="card col-md-7 p-4 text-break box">
             <table class="table">
                 <tr>
                     <td>Приз</td>
@@ -63,39 +64,41 @@
 
         <br>
         {% endfor %}
-    
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
 
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            {% for p in paginator.page_range %}
-            {% if page_obj.number == p %}
-            <li class="page-item active"><a class="page-link" href="">{{ p }}</a></li>
-            {% elif p >= page_obj.number|add:-4 and p <= page_obj.number|add:4 %} <li class="page-item"><a
-                    class="page-link" href="?page={{ p }}">{{ p }}</a></li>
-                {% endif %}
-                {% endfor %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if not page_obj.number == 1 %}
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                    <a class="page-link" href="?page=1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-        </ul>
-    </nav>
-</div>
+                {% endif %}
+                {% for p in paginator.page_range %}
+                    {% if page_obj.number == p %}
+                        <li class="page-item active"><a class="page-link disabled" href="">{{ p }}</a></li>
+                    {% elif p >= page_obj.number|add:-5 and p <= page_obj.number|add:5 %} 
+                        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if not page_obj.number == paginator.num_pages %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ paginator.num_pages }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 </div>
 <style>
-.box:hover {
-   /* border-color: rgb(13, 110, 253); */
-   background-color: rgb(240, 248, 252);
-   transition: 0.5s;
+    .box:hover {
+        /* border-color: rgb(13, 110, 253); */
+        background-color: rgb(240, 248, 252);
+        transition: 0.5s;
 
-}
-
+    }
 </style>
 {% endblock %}
