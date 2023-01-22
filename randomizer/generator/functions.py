@@ -21,6 +21,7 @@ def get_winner(url, token, qty_winners=3, is_subscribers=True):
         ]
     '''
     
+    url = url.replace('https://m.vk.com/', 'https://vk.com/')
     time.sleep(0.3)
     version = 5.131  # надо ли получать версию?
 
@@ -219,8 +220,16 @@ def get_winner(url, token, qty_winners=3, is_subscribers=True):
 
     return get_fname_l_name_photo(res)
 
-
+# url, token, qty_winners=3, is_subscribers=True)
 # тесты
-# x = 'https://vk.com/wall-53141502_214585'
-# y = get_winner(x)
-# [print(i) for i in y]
+# url = 'https://m.vk.com/wall-53141502_214585'
+# qty_winners = 3
+# is_subscribers = True
+
+# y = get_winner(url, token, qty_winners, is_subscribers)
+# if isinstance(y, list):
+#     for i in y:
+#         print(i)
+#         print()
+# else:
+#     print(y)
