@@ -22,6 +22,8 @@ def get_winner(url, token, qty_winners=3, is_subscribers=True):
     '''
     
     url = url.replace('https://m.vk.com/', 'https://vk.com/')
+    if qty_winners < 1:
+        qty_winners = 1
     time.sleep(0.3)
     version = 5.131  # надо ли получать версию?
 
