@@ -8,7 +8,7 @@ from captcha.fields import CaptchaField
 
 
 class CreationForm(UserCreationForm):
-    captcha = CaptchaField(label='Введите символы с картинки:')
+    captcha = CaptchaField(label='Cимволы с картинки:')
 
     class Meta(UserCreationForm.Meta):
         model = User
