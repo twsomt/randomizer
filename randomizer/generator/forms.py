@@ -1,11 +1,25 @@
-from django import forms
+class Bird:
+    def __init__(self, name, size):
+        self.name = name
+        self.size = size
 
-from generator.models import Raffle
+    def describe(self):
+        return f'Размер птицы {self.name} — {self.size}.'
 
 
-class VkForm(forms.ModelForm):
-    class Meta:
-        # Raffle form
-        model = Raffle
-        fields = ('description', 'link',
-                  'qty_winners', 'is_subscribers')
+class Parrot(Bird):
+    def __init__(self, name, size, color):
+        super().__init__(name)
+        super().__init__(size)
+        self.color = color
+
+
+class Penguin(Bird):
+    def __init__(self, name, size, genus):
+        super().__init__(name)
+        super().__init__(size)
+        self.genus = genus
+    
+    
+kesha = Parrot('Ара', 'средний', 'красный')
+kowalski = Penguin('Королевский', 'большой', 'Aptenodytes')
