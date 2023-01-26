@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'core',
     'captcha',
+    'user_cabinet'
 ]
 
 MIDDLEWARE = [

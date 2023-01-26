@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+{% load user_filters %}
+<div class="p-2 bg-light">
+  <br>
+  <div class="card col-md-12 p-4 text-break ">
+
+
+    <legend class="align-end">
+      <h4>Личный кабинет</h4>
+    </legend>
+    <div>
+
+      <div class="container">
+        <div class="row align-items-left">
+
+          <div class="col">
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Данные аккаунта</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4">
+                  {% if user.first_name and user.last_name %}
+                    <li>Имя и фамилия: {{ user.get_full_name }}</li>
+                  {% endif %}
+                  <li>Никнейм: {{ user.get_username }}</li>
+                  <li>Email: twsomt@ya.ru</li>
+                  <li>Дата регистрации: 25.12.2022</li>
+                  <li><a href="">Изменить</a> личные данные</li>
+                  <li><a href="">Изменить</a> или <a href="">удалить</a> API-ключ</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Настройки конкурсов</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4">
+
+                  <li><a href="">Изменить конкурс-таймаут</a></li>
+                  <li><a href="">Добавить шаблон конкурса</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Оплата</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Оплачено конкурсов: 88</li>
+                  <li>Текущий тариф: ОдиночныйКонкурс</li>
+                  <li><a href="">Изменить тариф</a></li>
+                  <li><a href="">Оплатить</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='float-end'>
+      <button type="submit" class="btn btn-outline-secondary">Выход</button></div>
+  </div>
+</div>
+
+{% endblock %}
