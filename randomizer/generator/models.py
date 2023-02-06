@@ -13,7 +13,7 @@ class Raffle(models.Model):
     slug = models.SlugField(unique=True, null=False, verbose_name='Введите слаг-адрес:')
     description = models.CharField(max_length=500, verbose_name='Какой будет приз?')
     link = models.URLField(verbose_name='Введите ссылку на пост Вконтакте:')
-    is_subscribers = models.BooleanField(default=True, verbose_name='Учитывать только участников группы')
+    is_subscribers = models.BooleanField(verbose_name='Учитывать только участников группы')
     qty_winners = models.PositiveIntegerField(verbose_name='Введите желаемое количество победителей:')
     winner = models.TextField(verbose_name='Победитель')
     winner_url = models.TextField(verbose_name='Ссылка на страницу победителя')

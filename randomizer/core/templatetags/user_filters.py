@@ -56,3 +56,7 @@ def to_str(x):
 @register.filter
 def to_int(x):
     return int(x)
+
+@register.filter 
+def addchecked(field, css):
+    return field.as_widget(attrs={'checked': css})

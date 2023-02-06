@@ -35,71 +35,77 @@
         <li>На посте отсутствует активность</li>
         <li>У вас нет доступа к этому посту</li>
       </ul>
-      Мы обнулили ссылку на пост, и сохранили остальные данные. Попробуем снова?
+      Мы обнулили ссылку на пост, и сохранили остальные данные.
     </div>
     {% endif %}
     <div class="instrcution border alert-danger rounded" style="margin: 10px; padding: 10px;">
       Вы ошибочно заполнили форму конкурса. Давайте всё исправим!
       <ul>
         <li>Вcе поля со звёздочкой должны быть заполнены</li>
-        <li>В поле со ссылкой укажите ссылку на пост Вконтакте (скопируйте из адресной строки)</li>
+        <li>В поле со ссылкой укажите ссылку на пост из паблика Вконтакте (скопируйте из адресной строки)</li>
         <li>В поле количество победителей укажите положительное число</li>
       </ul>
 
     </div>
+    
+    
     <form method="post" class='needs-validation' action="{% url 'generator:new_raffle' %}" novalidate>
       {% csrf_token %}
 
       {% for field in form %}
 
-      <div class="mb-2">
+        <div class="mb-2">
         {% if field.name == 'is_subscribers'%}
-        <input type="checkbox" id="id_{{ field.name }}" name="id_{{ field.name }}" checked="checked">
-        Учитывать только участников группы
+          {% if r_is_subscribers == 'True' %}
+            {{ field|addchecked:'checked'}}
+          {% else %}
+            {{ field }}
+          {% endif %}
+          {{ field.label }}
         {% else %}
-        <label class="form-label" for="{{ field.id_for_label }}">
+          <label class="form-label" for="{{ field.id_for_label }}">
 
           {{ field.label }}
           {% if field.field.required %}
-          <span class="required text-danger">*</span>
+            <span class="required text-danger">*</span>
           {% endif %}
         </label>
-
+        
         {% if field.name == 'link' %}
-        {% if r_link %}
-        {{ field|addvalue:r_link }}
-        {% else %}
-        {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
-        {% endif %}
+          {% if r_link %}
+            {{ field|addvalue:r_link }}
+          {% else %}
+              {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
+          {% endif %}
 
         {% elif field.name == 'title' %}
-        {% if r_title %}
-        {{ field|addvalue:r_title }}
-        {% else %}
-        {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
-        {% endif %}
+          {% if r_title %}
+            {{ field|addvalue:r_title }}
+          {% else %}
+            {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
+          {% endif %}
 
         {% elif field.name == 'description'%}
-        {% if r_description %}
-        {{ field|addvalue:r_description }}
-        {% else %}
-        {{ field|addplaceholder:'5кг оливье'}}
-        {% endif %}
+          {% if r_description %}
+            {{ field|addvalue:r_description }}
+          {% else %}
+            {{ field|addplaceholder:'5кг оливье'}}
+          {% endif %}
 
         {% elif field.name == 'qty_winners'%}
-        {% if r_qty_winners %}
-        {{ field|addvalue:r_qty_winners}}
-        {% else %}
-        {{ field|addplaceholder:'1'}}
-        {% endif %}
+          {% if r_qty_winners %}
+            {{ field|addvalue:r_qty_winners}}
+          {% else %}
+            {{ field|addplaceholder:'1'}}
+          {% endif %}
 
         {% elif field.name == 'is_subscribers'%}
-        {% if r_is_subscribers %}
-        {{ field|addvalue:r_is_subscribers}}
-        {% endif %}
+          {% if r_is_subscribers %}
+            {{ field|addclass:'checked'}}
+          {% endif %}
 
         {% else %}
-        {{ field|addclass:'form-control' }}
+          {{ field|addclass:'form-control' }}
         {% endif %}
         {% if field.help_text %}
         <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
@@ -109,6 +115,11 @@
         {% endif %}
       </div>
       {% endfor %}
+
+
+
+
+
       <a href="#"><button type="submit" class="btn btn-outline-primary block1" id="ActivateLoader">Определить
           победителя</button></a>
       <a href="">

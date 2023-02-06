@@ -10,7 +10,7 @@ import random
 # критический тест на 0 лайков, 0 комментов, 0 репостов, 0 подписчиков
 
 
-def get_winner(url, token, qty_winners=3, is_subscribers=True):
+def get_winner(url, token, qty_winners, is_subscribers):
     '''
     Функция определяет победителя (побетелей) из поста Вконтакте
     и возвращает список:
