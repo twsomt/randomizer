@@ -19,10 +19,12 @@
       <table class="table table-borderless">
 
         <td>
-          {% if user.first_name %}
-          Пользователь: {{ user.first_name }}
+          {% if user.client.display_name %}
+            Пользователь: {{ user.client.display_name }}
+          {% elif user.first_name %}
+            Пользователь: {{ user.first_name }}
           {% else %}
-          Пользователь: {{ user.get_username }}
+            Пользователь: {{ user.get_username }}
           {% endif %}
         </td>
         <td>
@@ -81,4 +83,9 @@
     {% endif %}
   </div>
 </div>
+{% endblock %}
+{% block footer %}
+  <div class="p-2 bg-light">
+    <div class="card col-md-12 p-4 text-break ">Сложности с использованием ресурса? <a href="https://t.me/twsomt" target="_blank">Свяжитесь с нами.</a></div>
+  </div>
 {% endblock %}

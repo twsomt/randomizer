@@ -28,9 +28,9 @@
                   <li>Никнейм: {{ user.get_username }}</li>
                   <li>Email: twsomt@ya.ru</li>
                   <li>Дата регистрации: 25.12.2022</li>
-                  <li><a href="">Изменить</a> личные данные</li>
-                  <li><a href="">Изменить отображаемое имя пользователя</li>
-                  <li><a href="">Изменить</a> или <a href="">удалить</a> API-ключ</li>
+                  {% if user.client.display_name %}
+                  <li>Отображаемое имя: {{ user.client.display_name }}</li>
+                  {% endif %}
                 </ul>
               </div>
             </div>
@@ -39,12 +39,15 @@
           <div class="col">
             <div class="card mb-4 box-shadow">
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Настройки конкурсов</h4>
+                <h4 class="my-0 font-weight-normal">Настройки</h4>
               </div>
               <div class="card-body">
                 <ul class="list-unstyled mt-3 mb-4">
                   <li><a href="">Изменить конкурс-таймаут</a></li>
                   <li><a href="">Добавить шаблон конкурса</a></li>
+                  <li><a href="">Изменить</a> личные данные</li>
+                  <li><a href="{% url 'user_cabinet:display_name_update' %}">Изменить / удалить</a> отображаемое имя</li>
+                  <li><a href="">Изменить / удалить</a> API-ключ</li>
                 </ul>
               </div>
             </div>
@@ -52,12 +55,15 @@
           <div class="col">
             <div class="card mb-4 box-shadow">
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Оплата</h4>
+                <h4 class="my-0 font-weight-normal">Оплата и тарифы</h4>
               </div>
               <div class="card-body">
                 <ul class="list-unstyled mt-3 mb-4">
-                  <li>Оплачено конкурсов: 88</li>
-                  <li>Текущий тариф: ОдиночныйКонкурс</li>
+                  {% comment %}
+                    <li>Оплачено конкурсов: 999 999 999</li>
+                  {% endcomment %}
+                  <li>Текущий тариф: Безграничный</li>
+                  <li>Действителен до: 31.12.2023</li>
                   <li><a href="">Изменить тариф</a></li>
                   <li><a href="">Оплатить</a></li>
                 </ul>
@@ -68,7 +74,7 @@
       </div>
     </div>
     <div class='float-end'>
-      <button type="submit" class="btn btn-outline-secondary">Выход</button></div>
+      <button type="submit" class="btn btn-outline-secondary">Выход из аккаунта</button></div>
   </div>
 </div>
 

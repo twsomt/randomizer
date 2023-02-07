@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Изменить отображаемое имя пользователя{% endblock %}
+{% load user_filters %}
+{% block content %}
+
+<div class="p-2 bg-light">
+  <br>
+  <div class="card col-md-12 p-4 text-break ">
+    {% if form.errors %}
+      {% for field in form %}
+        {% for error in field.errors %}
+          <div class="alert alert-danger">
+            {{ error|escape }}
+          </div>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+          {{ error|escape }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <legend class="align-end">
+      <h4><span class="text-muted">Личный кабинет:</span> изменить / удалить отображаемое имя пользователя</h4>
+    </legend>
+    <div>
+      Текущее имя:
+      {% if user.client.display_name %}
+      <span class="text-muted">{{ user.client.display_name }}</span>
+      {% elif user.first_name and user.last_name %}
+      <span class="text-muted">{{ user.get_full_name }}</span>
+      {% else %}
+      <span class="text-muted"> {{ user.get_username }}</span>
+      {% endif %}
+    </div>
+    <div class="mt-2">
+      <form method="post" action="{% url 'user_cabinet:display_name_update_ok' %}">
+        {% csrf_token %}
+        {% for field in form %}
+          {{ field.label }}
+          {{ field|addclass:'form-control' }}
+        {% endfor %}
+          <button type="submit" class="btn btn-outline-primary mt-3">Применить изменения</button>
+        </form>
+    </div>
+    <div class='float-end'>
+      <a href="{% url 'user_cabinet:index_lk' %}"><button class="btn btn-outline-secondary mt-3">Назад</button>
+  </div>
+  </div>
+  
+</div>
+  {% endblock %}

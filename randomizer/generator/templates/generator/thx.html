@@ -65,10 +65,12 @@
             {% endif %}
             <tr>
                 <td><span class="align-middle">Автор конкурса</span></td>
-                {% if user.first_name and user.last_name %}
-                <td><span class="align-middle">{{ user.get_full_name }}</span></td>
+                {% if user.client.display_name %}
+                    <td><span class="align-middle">{{ user.client.display_name }}</span></td>
+                {% elif user.first_name and user.last_name %}
+                    <td><span class="align-middle">{{ user.get_full_name }}</span></td>
                 {% else %}
-                <td><span class="align-middle">{{ user.get_username }}</span></td>
+                    <td><span class="align-middle">{{ user.get_username }}</span></td>
                 {% endif %}
             </tr>
         </table>
