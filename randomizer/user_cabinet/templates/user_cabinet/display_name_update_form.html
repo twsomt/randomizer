@@ -22,16 +22,14 @@
     {% endif %}
 
     <legend class="align-end">
-      <h4><span class="text-muted">Личный кабинет:</span> изменить / удалить отображаемое имя пользователя</h4>
+      <h4><span class="text-muted">Личный кабинет:</span> изменить / удалить отображаемый псевдоним</h4>
     </legend>
     <div>
-      Текущее имя:
+      Текущей псевдоним:
       {% if user.client.display_name %}
-      <span class="text-muted">{{ user.client.display_name }}</span>
-      {% elif user.first_name and user.last_name %}
-      <span class="text-muted">{{ user.get_full_name }}</span>
+        <span class="text-muted">{{ user.client.display_name }}</span>
       {% else %}
-      <span class="text-muted"> {{ user.get_username }}</span>
+        <span class="text-muted">Отсутствует</span>
       {% endif %}
     </div>
     <div class="mt-2">
@@ -41,8 +39,20 @@
           {{ field.label }}
           {{ field|addclass:'form-control' }}
         {% endfor %}
+        <div>
           <button type="submit" class="btn btn-outline-primary mt-3">Применить изменения</button>
-        </form>
+        </div>
+      </form>
+      {% if user.client.display_name %}
+        <div>
+          <a href="{% url 'user_cabinet:display_name_update_ok' %}">
+            <button class="btn btn-outline-danger mt-3">
+              Нажмите для удаления псевдонима
+            </button>
+          </a>
+        </div>
+      {% endif %}
+        
     </div>
     <div class='float-end'>
       <a href="{% url 'user_cabinet:index_lk' %}"><button class="btn btn-outline-secondary mt-3">Назад</button>

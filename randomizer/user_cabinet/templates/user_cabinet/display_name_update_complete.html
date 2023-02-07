@@ -7,10 +7,10 @@
 
 
     <legend class="align-end">
-      <h4><span class="text-muted">Личный кабинет:</span> изменить / удалить отображаемое имя пользователя</h4>
+      <h4><span class="text-muted">Личный кабинет:</span> изменить / удалить отображаемый псевдоним</h4>
     </legend>
     <div>
-      Отображаемое имя успешно изменено на <span class="text-muted">{{ user.client.display_name }}</span>
+      {{ text }} <span class="text-muted">{{ name }}</span>
     </div>
     
     <div class='float-end'>
@@ -19,4 +19,4 @@
   </div>
   
 </div>
-  {% endblock %}
+{% endblock %}

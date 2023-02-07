@@ -20,9 +20,19 @@ def display_name_update_ok(request):
     usr = Client.objects.get(user=request.user)
     usr.display_name = display_name
     usr.save()
-        
+    
+    if display_name:
+        text = 'Псевдоним успешно изменен на'
+        name = display_name
+    else:
+        text = 'Псевдоним успешно сброшен'
+        name = ''
 
-    return render(request, 'user_cabinet/display_name_update_complete.html', {} )
+    context = {
+        'text':text,
+        'name':name,
+    }
+    return render(request, 'user_cabinet/display_name_update_complete.html', context )
 
 class DisplayNameUpdate(LoginRequiredMixin, CreateView):
     form_class = DisplayNameUpdate
