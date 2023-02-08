@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Изменить отображаемое имя пользователя{% endblock %}
+{% block content %}
+<div class="p-2 bg-light">
+  <br>
+  <div class="card col-md-12 p-4 text-break ">
+
+
+    <legend class="align-end">
+      <h4><span class="text-muted">Личный кабинет:</span> изменить / удалить VK API ключ</h4>
+    </legend>
+    <div>
+      API ключ ВК был успешно удален из системы
+    </div>
+    
+    <div class='float-end'>
+      <a href="{% url 'user_cabinet:index_lk' %}"><button class="btn btn-outline-secondary mt-3">Назад</button>
+  </div>
+  </div>
+  
+</div>
+{% endblock %}

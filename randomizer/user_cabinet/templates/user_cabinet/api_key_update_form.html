@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Изменить отображаемое имя пользователя{% endblock %}
+{% load user_filters %}
+{% block content %}
+
+<div class="p-2 bg-light">
+  <br>
+  <div class="card col-md-12 p-4 text-break ">
+    {% if form.errors %}
+      {% for field in form %}
+        {% for error in field.errors %}
+          <div class="alert alert-danger">
+            {{ error|escape }}
+          </div>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+          {{ error|escape }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <legend class="align-end">
+      <h4><span class="text-muted">Личный кабинет:</span> изменить / удалить VK API ключ</h4>
+    </legend>
+    <div class="mt-2">
+        <div>
+          <a href="https://oauth.vk.com/authorize?client_id=51527760&display=page&redirect_uri=https://goraffle.ru/auth/auth_vk_key/&scope=groups+offline&response_type=token&v=5.131&state=123456"
+      target="_blank">
+            <button type="submit" class="btn btn-outline-primary mt-3">
+              Добавить новый ключ в систему
+            </button>
+          </a>
+          <p class="mt-1">
+            <span class="text-muted">
+              Вы будете переадресованы на страницу Вконтакте, где необходимо авторизовать наше приложение.
+            </span>
+          </p>
+        </div>
+      </form>
+      {% if user.client.api_vk_key %}
+        <div>
+          <a href="{% url 'user_cabinet:api_key_update_ok' %}">
+            <button class="btn btn-outline-danger mt-2">
+              Удалить текущий ключ
+            </button>
+          </a>
+          <p class="mt-1">
+            <span class="text-muted">
+              Вы можете в любой момент удалить свой ВК-ключ из системы, однако он необходим для проведения конкурсов.
+            </span><br>
+            <span class="text-muted">
+              При проведении конкурса (если ключ будет отсутствовать) вы получите уведомление о необходимости его добавить.
+            </span>
+          </p>
+        </div>
+      {% endif %}
+        
+    </div>
+    <div class='float-end'>
+      <a href="{% url 'user_cabinet:index_lk' %}"><button class="btn btn-outline-secondary mt-2">Назад</button>
+  </div>
+  </div>
+  
+</div>
+  {% endblock %}

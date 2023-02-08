@@ -45,7 +45,7 @@
                 <ul class="list-unstyled mt-3 mb-4">
                   <li><a href="">Изменить конкурс-таймаут</a></li>
                   <li><a href="{% url 'user_cabinet:display_name_update' %}">Изменить / удалить</a> псевдоним</li>
-                  <li><a href="">Изменить / удалить</a> API-ключ</li>
+                  <li><a href="{% url 'user_cabinet:api_key_update' %}">Изменить / удалить</a> API-ключ</li>
                 </ul>
               </div>
             </div>
@@ -62,8 +62,8 @@
                   {% endcomment %}
                   <li>Текущий тариф: Безграничный</li>
                   <li>Действителен до: 31.12.2023</li>
-                  <li><a href="">Изменить тариф</a></li>
-                  <li><a href="">Оплатить</a></li>
+                  <!-- <li><a href="">Изменить тариф</a></li> -->
+                  <!-- <li><a href="">Оплатить</a></li> -->
                 </ul>
               </div>
             </div>
