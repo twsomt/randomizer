@@ -34,9 +34,16 @@ def auth_vk_complete(request):
     access_token = request.GET.get('token', '123')
 
     if not error:
-        usr = Client.objects.get(user=request.user)
-        usr.api_vk_key = access_token
-        usr.save()
+        try:
+            usr = Client.objects.get(user=request.user)
+        except:
+            usr = False
+            
+        if usr:
+            usr.api_vk_key = access_token
+            usr.save()
+        else:
+            Client.objects.create(user=request.user, api_vk_key=access_token)
 
     return render(request, 'users/auth_vk_complete.html', context)
 

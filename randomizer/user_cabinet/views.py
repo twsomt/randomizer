@@ -19,10 +19,17 @@ def display_name_update(request):
 @authorized_only
 def display_name_update_ok(request):
     display_name = request.POST.get('display_name')
-    usr = Client.objects.get(user=request.user)
-    usr.display_name = display_name
-    usr.save()
-    
+    try:
+        usr = Client.objects.get(user=request.user)
+    except:
+        usr = False
+
+    if usr:
+        usr.display_name = display_name
+        usr.save()
+    else:
+        Client.objects.create(user=request.user, display_name=display_name)
+
     if display_name:
         text = 'Псевдоним успешно изменен на'
         name = display_name
