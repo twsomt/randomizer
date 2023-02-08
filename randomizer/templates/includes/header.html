@@ -19,12 +19,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'generator:new_raffle' %}">Новый конкурс</a>
         </li>
-        {% if user.get_username == 'twsomt' %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user_cabinet:index_lk' %}">Личный кабинет</a>
         </li>
-        {% endif %}
-
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
             {% if user.client.display_name %}
