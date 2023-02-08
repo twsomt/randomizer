@@ -10,9 +10,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         {% block navbar %}
-        <!-- <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'generator:index' %}">Главная</a>
-          </li> -->
         {% if request.user.is_authenticated %}
         {% if user.get_username == 'twsomt' %}
         <li class="nav-item">
