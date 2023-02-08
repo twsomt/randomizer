@@ -47,65 +47,65 @@
       </ul>
 
     </div>
-    
-    
+
+
     <form method="post" class='needs-validation' action="{% url 'generator:new_raffle' %}" novalidate>
       {% csrf_token %}
 
       {% for field in form %}
 
-        <div class="mb-2">
+      <div class="mb-2">
         {% if field.name == 'is_subscribers'%}
-          {% if r_is_subscribers == 'True' %}
-            {{ field|addchecked:'checked'}}
-          {% else %}
-            {{ field }}
-          {% endif %}
-          {{ field.label }}
+        {% if r_is_subscribers == 'True' %}
+        {{ field|addchecked:'checked'}}
         {% else %}
-          <label class="form-label" for="{{ field.id_for_label }}">
+        {{ field }}
+        {% endif %}
+        {{ field.label }}
+        {% else %}
+        <label class="form-label" for="{{ field.id_for_label }}">
 
           {{ field.label }}
           {% if field.field.required %}
-            <span class="required text-danger">*</span>
+          <span class="required text-danger">*</span>
           {% endif %}
         </label>
-        
+
         {% if field.name == 'link' %}
-          {% if r_link %}
-            {{ field|addvalue:r_link }}
-          {% else %}
-              {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
-          {% endif %}
+        {% if r_link %}
+        {{ field|addvalue:r_link }}
+        {% else %}
+        {{ field|addplaceholder:'https://vk.com/wall-7568821_681441'}}
+        {% endif %}
 
         {% elif field.name == 'title' %}
-          {% if r_title %}
-            {{ field|addvalue:r_title }}
-          {% else %}
-            {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
-          {% endif %}
+        {% if r_title %}
+        {{ field|addvalue:r_title }}
+        {% else %}
+        {{ field|addplaceholder:'Конкурс для группы с лучшими подписчиками'}}
+        {% endif %}
 
         {% elif field.name == 'description'%}
-          {% if r_description %}
-            {{ field|addvalue:r_description }}
-          {% else %}
-            {{ field|addplaceholder:'5кг оливье'}}
-          {% endif %}
+        {% if r_description %}
+        {{ field|addvalue:r_description }}
+        {% else %}
+        {{ field|addplaceholder:'5кг оливье'}}
+        {% endif %}
 
         {% elif field.name == 'qty_winners'%}
-          {% if r_qty_winners %}
-            {{ field|addvalue:r_qty_winners}}
-          {% else %}
-            {{ field|addplaceholder:'1'}}
-          {% endif %}
+        {% if r_qty_winners %}
+        {{ field|addvalue:r_qty_winners}}
+        {% else %}
+        {{ field|addplaceholder:'1'}}
+        {% endif %}
 
         {% elif field.name == 'is_subscribers'%}
-          {% if r_is_subscribers %}
-            {{ field|addclass:'checked'}}
-          {% endif %}
+        {% if r_is_subscribers %}
+        {{ field|addclass:'checked'}}
+        {% endif %}
 
         {% else %}
-          {{ field|addclass:'form-control' }}
+        {{ field|addclass:'form-control' }}
         {% endif %}
         {% if field.help_text %}
         <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
@@ -134,12 +134,20 @@
 
 
   {% else %}
-  <div class="alert alert-danger">
-    Отсутствует корректный API - ключ
+  <div class="p-2 bg-light">
     <br>
-    <br>
-    <a href="https://oauth.vk.com/authorize?client_id=51527760&display=page&redirect_uri=https://goraffle.ru/auth/auth_vk_key/&scope=groups+offline&response_type=token&v=5.131&state=123456"
-      target="_blank">Получить ключ</a>
+    <div class="card col-md-12 p-4 text-break">
+      <legend>
+        <h4>Новый конкурс</h4>
+      </legend>
+      <div class="border alert-danger rounded" style="margin: 10px; padding: 10px;">
+        Отсутствует корректный API - ключ
+        <br>
+        <br>
+        <a href="https://oauth.vk.com/authorize?client_id=51527760&display=page&redirect_uri=https://goraffle.ru/auth/auth_vk_key/&scope=groups+offline&response_type=token&v=5.131&state=123456"
+          target="_blank">Получить ключ</a>
+      </div>
+    </div>
   </div>
   {% endif %}
 
