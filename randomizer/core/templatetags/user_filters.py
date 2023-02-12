@@ -5,11 +5,11 @@ register = template.Library()
 
 @register.filter 
 def addclass(field, css):
-    return field.as_widget(attrs={'class': css})
+    return field.as_widget(attrs={'class': css, 'class': 'form-control shadow-none'})
 
 @register.filter 
 def addvalue(field, css):
-    return field.as_widget(attrs={'value': css, 'class': 'form-control'})
+    return field.as_widget(attrs={'value': css, 'class': 'form-control shadow-none'})
 
 @register.filter 
 def addwidth(field):
@@ -17,7 +17,7 @@ def addwidth(field):
 
 @register.filter 
 def addplaceholder(field, css):
-    return field.as_widget(attrs={'placeholder': css, 'class': 'form-control'})
+    return field.as_widget(attrs={'placeholder': css, 'class': 'form-control shadow-none'})
 
 @register.filter
 def str_to_list(x):
